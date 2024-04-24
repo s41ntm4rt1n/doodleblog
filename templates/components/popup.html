@@ -1,0 +1,13 @@
+    <div class="{% if message %}{% if message.tags == 'error' %}yx-nyk popup padding-md yx-nbp js-alert-card alert-danger{% elif message.tags == 'success' %}yx-nyk popup padding-md yx-nbp js-alert-card alert-success{% else %}yx-nyk popup padding-md yx-nbp js-alert-card{% endif %}{% endif %}" data-popup-id="alert{{ forloop.counter }}">
+      <div class="text-component">
+        <p>{{message}}</p>
+      </div>
+      <button class="reset yx-nbd js-tab-focus js-alert-card__close-btn">
+        <svg class="icon" viewBox="0 0 16 16">
+          <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="2" y1="2" x2="14" y2="14"></line>
+            <line x1="14" y1="2" x2="2" y2="14"></line>
+          </g>
+        </svg>
+      </button>
+    </div>

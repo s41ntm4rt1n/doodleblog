@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Resend OTP Email{%endblock%}
+{% block content%}
+<div class="yx-t yx-mj yx-ap yx-fe yx-ga yx-gx">
+  <form class="sign-up-form"  method="post">
+    {% csrf_token %}
+    <div class="text-component yx-ht yx-sv">
+      <h1>Resend OTP</h1>
+      <p class="text-sm">Enter your email to recieve the OTP code.</p>
+    </div>
+    <div class="yx-sv">
+      <div class="yx-n gap-xs">
+          <label class="form-label yx-sp" for="Email">Email</label>
+          <input class="form-control yx-vf" type="text" name="Email" id="Email" required>
+      </div>
+    </div>
+    <div class="yx-sv d-flex justify-content-center">
+      <button class="btn btn--primary btn--xs">Resend</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var alert = document.getElementById('alert');
+    hideAlertAfterDelay(alert);
+    function hideAlertAfterDelay(alert) {
+      setTimeout(function() {
+          alert.classList.add('not-visible');
+      }, 6000);
+    }
+  });
+</script>
+{% endblock %}

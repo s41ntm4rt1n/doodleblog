@@ -1,0 +1,935 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gy yx-padding-rr">
+          <ul class="grid gap-lg">
+            <!-- popup -->
+            <li>
+              <header class="yx-lb">
+                <div class="flex flex-column gap-xxs yx-tos yx-tom yx-tow">
+                  <h2 class="text-lg">Earnings</h2>
+                  <p><a href="reports.html">Reports →</a></p>
+                </div>
+              </header>
+              <div class="yx-nyk padding-md">
+                <p class="yx-lb">
+                  Today: <span class="color-primary">$129</span>
+                </p>
+                <div class="chart chart--area" id="area-chart-1">
+                  <div class="chart__area js-chart__area"></div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <header class="yx-lb">
+                <div class="flex flex-column gap-xxs yx-tos yx-tom yx-tow">
+                  <h2 class="text-lg">Articles</h2>
+                  <p>
+                    <a href="new-article.html">+ New</a>
+                    <span class="yx-color-u">|</span>
+                    <a href="articles.html">All articles →</a>
+                  </p>
+                </div>
+              </header>
+              <div class="yx-nyk yx-padding-nm yx-padding-ti yx-padding-g">
+                <nav class="yx-nqr">
+                  <ul class="yx-nqi">
+                    <li><a class="yx-nqs yx-nqo" href="#0">All (21)</a></li>
+                    <li><a class="yx-nqs" href="#0">Published (19)</a></li>
+                    <li><a class="yx-nqs" href="#0">Draft (2)</a></li>
+                  </ul>
+                </nav>
+                <div
+                  class="yx-padding-re yx-border-n"
+                  data-table-controls="table-id"
+                >
+                  <ul class="flex flex-column gap-xxs yx-tos yx-tog">
+                    <li
+                      class="yx-padding-tm is-hidden js-int-table-actions__items-selected"
+                    >
+                      <div class="flex items-center gap-xxxs">
+                        <div class="select" style="--select-icon-size: 12px;">
+                          <select
+                            class="yx-nwx btn btn--subtle"
+                            name="select-bulk-action"
+                            id="select-bulk-action"
+                            aria-label="Bulk actions"
+                          >
+                            <option value="0">Bulk actions</option>
+                            <option value="1">Action 1</option>
+                            <option value="2">Action 2</option>
+                            <option value="3">Action 3</option>
+                          </select>
+                          <svg
+                            class="icon yx-nwk"
+                            aria-hidden="true"
+                            viewBox="0 0 12 12"
+                          >
+                            <polyline
+                              points="1 4 6 9 11 4"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                            ></polyline>
+                          </svg>
+                        </div>
+                        <button class="btn btn--primary">Apply</button>
+                      </div>
+                    </li>
+                    <li class=>
+                      <div class="flex yx-a_ justify-content-start gap-xxxs">
+                        <div class="select" style="--select-icon-size: 12px;">
+                          <select
+                            class="yx-nwx btn btn--subtle"
+                            name="select-author"
+                            id="select-author"
+                          >
+                            <option value="0">All authors</option>
+                            <option value="1">Author 1</option>
+                            <option value="2">Author 2</option>
+                          </select>
+                          <svg
+                            class="icon yx-nwk"
+                            aria-hidden="true"
+                            viewBox="0 0 12 12"
+                          >
+                            <polyline
+                              points="1 4 6 9 11 4"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                            ></polyline>
+                          </svg>
+                        </div>
+                        <div class="select" style="--select-icon-size: 12px;">
+                          <select
+                            class="yx-nwx btn btn--subtle"
+                            name="select-category"
+                            id="select-category"
+                          >
+                            <option value="0">All categories</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                          </select>
+                          <svg
+                            class="icon yx-nwk"
+                            aria-hidden="true"
+                            viewBox="0 0 12 12"
+                          >
+                            <polyline
+                              points="1 4 6 9 11 4"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                            ></polyline>
+                          </svg>
+                        </div>
+                        <button class="btn btn--primary">Filter</button>
+                      </div>
+                    </li>
+                    <li class="yx-tfc">
+                      <form
+                        class="yx-nxc js-expandable-search"
+                        style="--expandable-search-icon-size: 1.25em; --expandable-search-size-expanded: 12em;"
+                      >
+                        <label class="sr-only" for="expandable-search"
+                          >Filter articles</label
+                        >
+                        <input
+                          class="reset yx-nxh js-expandable-search__input"
+                          type="search"
+                          name="expandable-search"
+                          id="expandable-search"
+                          placeholder="Search articles..."
+                        />
+                        <button class="reset yx-nxd">
+                          <svg class="icon" viewBox="0 0 20 20">
+                            <title>Search</title>
+                            <g
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-miterlimit="10"
+                              stroke-width="2"
+                            >
+                              <circle cx="8" cy="8" r="6"></circle>
+                              <line
+                                x1="12.243"
+                                y1="12.243"
+                                x2="18"
+                                y2="18"
+                              ></line>
+                            </g>
+                          </svg>
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+                <div id="table-id" class="int-table js-int-table">
+                  <div class="yx-rte">
+                    <table
+                      class="yx-rtt"
+                      aria-label="Interactive table example"
+                    >
+                      <thead class="yx-rtn js-int-table__header">
+                        <tr class="yx-rti">
+                          <td class="int-table__cell">
+                            <div class="yx-nwg yx-rth">
+                              <input
+                                class="yx-nwy js-int-table__select-all"
+                                type="checkbox"
+                                aria-label="Select all rows"
+                              />
+                              <div class="yx-nwb" aria-hidden="true"></div>
+                            </div>
+                          </td>
+                          <th
+                            class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort"
+                          >
+                            <div class="flex items-center">
+                              <span>Title</span>
+                              <svg
+                                class="icon yx-ac yx-cp yx-rtf"
+                                aria-hidden="true"
+                                viewBox="0 0 12 12"
+                              >
+                                <polygon
+                                  class="yx-rtl"
+                                  points="6 0 10 5 2 5 6 0"
+                                ></polygon>
+                                <polygon
+                                  class="yx-rtc"
+                                  points="6 12 2 7 10 7 6 12"
+                                ></polygon>
+                              </svg>
+                            </div>
+                            <ul class="sr-only js-int-table__sort-list">
+                              <li>
+                                <input
+                                  type="radio"
+                                  name="sorting-title"
+                                  id="sorting-title-none"
+                                  value="none"
+                                  checked
+                                />
+                                <label for="sorting-title-none"
+                                  >No sorting</label
+                                >
+                              </li>
+                              <li>
+                                <input
+                                  type="radio"
+                                  name="sorting-title"
+                                  id="sorting-title-asc"
+                                  value="asc"
+                                />
+                                <label for="sorting-title-asc"
+                                  >Sort in ascending order</label
+                                >
+                              </li>
+                              <li>
+                                <input
+                                  type="radio"
+                                  name="sorting-title"
+                                  id="sorting-title-des"
+                                  value="desc"
+                                />
+                                <label for="sorting-title-des"
+                                  >Sort in descending order</label
+                                >
+                              </li>
+                            </ul>
+                          </th>
+                          <th class="int-table__cell yx-rto yx-pj">Author</th>
+                          <th class="int-table__cell yx-rto yx-pj">Category</th>
+                          <th class="int-table__cell yx-rto yx-pj">Status</th>
+                          <th
+                            class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort"
+                            data-date-format="dd-mm-yyyy"
+                          >
+                            <div class="flex items-center yx-fu">
+                              <span>Date</span>
+                              <svg
+                                class="icon yx-ac yx-cp yx-rtf"
+                                aria-hidden="true"
+                                viewBox="0 0 12 12"
+                              >
+                                <polygon
+                                  class="yx-rtl"
+                                  points="6 0 10 5 2 5 6 0"
+                                ></polygon>
+                                <polygon
+                                  class="yx-rtc"
+                                  points="6 12 2 7 10 7 6 12"
+                                ></polygon>
+                              </svg>
+                            </div>
+                            <ul class="sr-only js-int-table__sort-list">
+                              <li>
+                                <input
+                                  type="radio"
+                                  name="sorting-date"
+                                  id="sorting-date-none"
+                                  value="none"
+                                  checked
+                                />
+                                <label for="sorting-date-none"
+                                  >No sorting</label
+                                >
+                              </li>
+                              <li>
+                                <input
+                                  type="radio"
+                                  name="sorting-date"
+                                  id="sorting-date-asc"
+                                  value="asc"
+                                />
+                                <label for="sorting-date-asc"
+                                  >Sort in ascending order</label
+                                >
+                              </li>
+                              <li>
+                                <input
+                                  type="radio"
+                                  name="sorting-date"
+                                  id="sorting-date-des"
+                                  value="desc"
+                                />
+                                <label for="sorting-date-des"
+                                  >Sort in descending order</label
+                                >
+                              </li>
+                            </ul>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="yx-rtr js-int-table__body">
+                        <tr class="yx-rti">
+                          <th class="int-table__cell" scope="row">
+                            <div class="yx-nwg yx-rth">
+                              <input
+                                class="yx-nwy js-int-table__select-row"
+                                type="checkbox"
+                                aria-label="Select this row"
+                              />
+                              <div class="yx-nwb" aria-hidden="true"></div>
+                            </div>
+                          </th>
+                          <td class="int-table__cell max-width-xxxxs">
+                            <a href="article.html">Lorem ipsum dolor sit</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="author.html">Bryony Mcmillan</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="category.html">Category 1</a>,
+                            <a href="category.html">Category 2</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <span
+                              class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj"
+                              >Published</span
+                            >
+                          </td>
+                          <td class="int-table__cell yx-pq">18/03/2022</td>
+                        </tr>
+                        <tr class="yx-rti">
+                          <th class="int-table__cell" scope="row">
+                            <div class="yx-nwg yx-rth">
+                              <input
+                                class="yx-nwy js-int-table__select-row"
+                                type="checkbox"
+                                aria-label="Select this row"
+                              />
+                              <div class="yx-nwb" aria-hidden="true"></div>
+                            </div>
+                          </th>
+                          <td class="int-table__cell max-width-xxxxs">
+                            <a href="article.html"
+                              >Lorem ipsum dolor sit amet consectetur</a
+                            >
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="author.html">James Powell</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="category.html">Category 1</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <span
+                              class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj"
+                              >Published</span
+                            >
+                          </td>
+                          <td class="int-table__cell yx-pq">12/03/2022</td>
+                        </tr>
+                        <tr class="yx-rti">
+                          <th class="int-table__cell" scope="row">
+                            <div class="yx-nwg yx-rth">
+                              <input
+                                class="yx-nwy js-int-table__select-row"
+                                type="checkbox"
+                                aria-label="Select this row"
+                              />
+                              <div class="yx-nwb" aria-hidden="true"></div>
+                            </div>
+                          </th>
+                          <td class="int-table__cell max-width-xxxxs">
+                            <a href="article.html">Lorem ipsum dolor</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="author.html">James Powell</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="category.html">Category 3</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <span
+                              class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj"
+                              >Published</span
+                            >
+                          </td>
+                          <td class="int-table__cell yx-pq">05/03/2022</td>
+                        </tr>
+                        <tr class="yx-rti">
+                          <th class="int-table__cell" scope="row">
+                            <div class="yx-nwg yx-rth">
+                              <input
+                                class="yx-nwy js-int-table__select-row"
+                                type="checkbox"
+                                aria-label="Select this row"
+                              />
+                              <div class="yx-nwb" aria-hidden="true"></div>
+                            </div>
+                          </th>
+                          <td class="int-table__cell max-width-xxxxs">
+                            <a href="article.html"
+                              >Lorem ipsum dolor sit amet consectetur</a
+                            >
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="author.html">Bryony Mcmillan</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="category.html">Category 2</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <span
+                              class="yx-fd yx-bg-b yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-w text-xs yx-dj"
+                              >Draft</span
+                            >
+                          </td>
+                          <td class="int-table__cell yx-pq">27/02/2022</td>
+                        </tr>
+                        <tr class="yx-rti">
+                          <th class="int-table__cell" scope="row">
+                            <div class="yx-nwg yx-rth">
+                              <input
+                                class="yx-nwy js-int-table__select-row"
+                                type="checkbox"
+                                aria-label="Select this row"
+                              />
+                              <div class="yx-nwb" aria-hidden="true"></div>
+                            </div>
+                          </th>
+                          <td class="int-table__cell max-width-xxxxs">
+                            <a href="article.html">Lorem ipsum dolor sit</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="author.html">Bryony Mcmillan</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <a href="category.html">Category 1</a>,
+                            <a href="category.html">Category 2</a>
+                          </td>
+                          <td class="int-table__cell">
+                            <span
+                              class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj"
+                              >Published</span
+                            >
+                          </td>
+                          <td class="int-table__cell yx-pq">15/02/2022</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between yx-padding-g">
+                  <p>21 results</p>
+                  <nav class="pagination" aria-label="Pagination">
+                    <ul class="yx-n_d flex yx-a_ gap-xxxs">
+                      <li>
+                        <a href="#0" class="yx-n_m"
+                          ><svg class="icon" viewBox="0 0 16 16">
+                            <title>Go to previous page</title>
+                            <g stroke-width="2" stroke="currentColor">
+                              <polyline
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-miterlimit="10"
+                                points="9.5,3.5 5,8 9.5,12.5 "
+                              ></polyline>
+                            </g></svg></a>
+                      </li>
+                      <li>
+                        <span class="yx-n_w flex items-center"
+                          ><input
+                            aria-label="Page number"
+                            class="form-control"
+                            type="text"
+                            id="pageNumber"
+                            name="pageNumber"
+                            value="1"
+                          />
+                          <em>of 3</em></span
+                        >
+                      </li>
+                      <li>
+                        <a href="#0" class="yx-n_m"
+                          ><svg class="icon" viewBox="0 0 16 16">
+                            <title>Go to next page</title>
+                            <g stroke-width="2" stroke="currentColor">
+                              <polyline
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-miterlimit="10"
+                                points="6.5,3.5 11,8 6.5,12.5 "
+                              ></polyline>
+                            </g></svg></a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </li>
+            <li>
+              <header class="yx-lb">
+                <h2 class="text-lg">Connected Apps</h2>
+              </header>
+              <ul class="grid gap-xs">
+                <li class="yx-ri yx-sk">
+                  <div class="yx-nyk yx-rey yx-ge padding-md js-switch-card">
+                    <div
+                      class="flex yx-a_ gap-xxs items-center justify-between"
+                    >
+                      <figure class="yx-rew yx-xy">
+                        <img
+                          class="yx-rex"
+                          src="assets/img/switch-card-img-3.png"
+                          alt="App logo"
+                        />
+                      </figure>
+                      <div class="yx-njz js-switch-card__switch">
+                        <input
+                          class="yx-nqe"
+                          type="checkbox"
+                          id="switch-card-3"
+                        />
+                        <label
+                          class="yx-nqt"
+                          for="switch-card-3"
+                          aria-hidden="true"
+                          >Activate app</label
+                        >
+                        <div class="yx-nqn" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                    <div class="text-component yx-ll">
+                      <h3 class="text-md">Asana</h3>
+                      <p class="color-contrast-medium">
+                        Lorem ipsum dolor sit amet
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="yx-ri yx-sk">
+                  <div class="yx-nyk yx-rey yx-ge padding-md js-switch-card">
+                    <div
+                      class="flex yx-a_ gap-xxs items-center justify-between"
+                    >
+                      <figure class="yx-rew yx-xy">
+                        <img
+                          class="yx-rex"
+                          src="assets/img/switch-card-img-2.png"
+                          alt="App logo"
+                        />
+                      </figure>
+                      <div class="yx-njz js-switch-card__switch">
+                        <input
+                          class="yx-nqe"
+                          type="checkbox"
+                          id="switch-card-2"
+                          checked
+                        />
+                        <label
+                          class="yx-nqt"
+                          for="switch-card-2"
+                          aria-hidden="true"
+                          >Activate app</label
+                        >
+                        <div class="yx-nqn" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                    <div class="text-component yx-ll">
+                      <h3 class="text-md">Dropbox</h3>
+                      <p class="color-contrast-medium">
+                        Lorem ipsum dolor sit amet consectetur
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="yx-ri yx-sk">
+                  <div class="yx-nyk yx-rey yx-ge padding-md js-switch-card">
+                    <div
+                      class="flex yx-a_ gap-xxs items-center justify-between"
+                    >
+                      <figure class="yx-rew yx-xy">
+                        <img
+                          class="yx-rex"
+                          src="assets/img/switch-card-img-1.png"
+                          alt="App logo"
+                        />
+                      </figure>
+                      <div class="yx-njz js-switch-card__switch">
+                        <input
+                          class="yx-nqe"
+                          type="checkbox"
+                          id="switch-card-1"
+                        />
+                        <label
+                          class="yx-nqt"
+                          for="switch-card-1"
+                          aria-hidden="true"
+                          >Activate app</label
+                        >
+                        <div class="yx-nqn" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                    <div class="text-component yx-ll">
+                      <h3 class="text-md">Firefox</h3>
+                      <p class="color-contrast-medium">Lorem ipsum dolor sit</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="yx-ri yx-sk">
+                  <div class="yx-nyk yx-rey yx-ge padding-md js-switch-card">
+                    <div
+                      class="flex yx-a_ gap-xxs items-center justify-between"
+                    >
+                      <figure class="yx-rew yx-xy">
+                        <img
+                          class="yx-rex"
+                          src="assets/img/switch-card-img-4.png"
+                          alt="App logo"
+                        />
+                      </figure>
+                      <div class="yx-njz js-switch-card__switch">
+                        <input
+                          class="yx-nqe"
+                          type="checkbox"
+                          id="switch-card-4"
+                          checked
+                        />
+                        <label
+                          class="yx-nqt"
+                          for="switch-card-4"
+                          aria-hidden="true"
+                          >Activate app</label
+                        >
+                        <div class="yx-nqn" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                    <div class="text-component yx-ll">
+                      <h3 class="text-md">Discord</h3>
+                      <p class="color-contrast-medium">
+                        Lorem ipsum dolor sit amet consectetur
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="yx-ri yx-sk">
+                  <div class="yx-nyk yx-rey yx-ge padding-md js-switch-card">
+                    <div
+                      class="flex yx-a_ gap-xxs items-center justify-between"
+                    >
+                      <figure class="yx-rew yx-xy">
+                        <img
+                          class="yx-rex"
+                          src="assets/img/switch-card-img-5.png"
+                          alt="App logo"
+                        />
+                      </figure>
+                      <div class="yx-njz js-switch-card__switch">
+                        <input
+                          class="yx-nqe"
+                          type="checkbox"
+                          id="switch-card-5"
+                        />
+                        <label
+                          class="yx-nqt"
+                          for="switch-card-5"
+                          aria-hidden="true"
+                          >Activate app</label
+                        >
+                        <div class="yx-nqn" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                    <div class="text-component yx-ll">
+                      <h3 class="text-md">Slack</h3>
+                      <p class="color-contrast-medium">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="yx-ri yx-sk">
+                  <div class="yx-nyk yx-rey yx-ge padding-md js-switch-card">
+                    <div
+                      class="flex yx-a_ gap-xxs items-center justify-between"
+                    >
+                      <figure class="yx-rew yx-xy">
+                        <img
+                          class="yx-rex"
+                          src="assets/img/switch-card-img-6.png"
+                          alt="App logo"
+                        />
+                      </figure>
+                      <div class="yx-njz js-switch-card__switch">
+                        <input
+                          class="yx-nqe"
+                          type="checkbox"
+                          id="switch-card-6"
+                          checked
+                        />
+                        <label
+                          class="yx-nqt"
+                          for="switch-card-6"
+                          aria-hidden="true"
+                          >Activate app</label
+                        >
+                        <div class="yx-nqn" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                    <div class="text-component yx-ll">
+                      <h3 class="text-md">Github</h3>
+                      <p class="color-contrast-medium">
+                        Lorem ipsum dolor sit amet consectetur
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul class="grid gap-lg yx-lugap-la">
+                <li class="yx-sz">
+                  <header class="yx-lb">
+                    <h2 class="text-lg">Quick Links</h2>
+                  </header>
+                  <div class="yx-nyk padding-md">
+                    <ul class="yx-nkn">
+                      <li class="yx-nkr flex gap-sm yx-tog">
+                        <figure class="yx-nki color-primary" aria-hidden="true">
+                          <svg class="yx-nks icon" viewBox="0 0 24 24">
+                            <g>
+                              <path
+                                d="M5.576,10.958a1,1,0,0,0,.673-1.244,6,6,0,1,1,11.5,0,1,1,0,0,0,.673,1.244A1.021,1.021,0,0,0,18.71,11a1,1,0,0,0,.958-.714,8,8,0,1,0-15.336,0A1,1,0,0,0,5.576,10.958Z"
+                                opacity="0.5"
+                              ></path>
+                              <circle
+                                cx="12"
+                                cy="8"
+                                r="4"
+                                opacity="0.5"
+                              ></circle>
+                              <path
+                                d="M13,18.184V15a1,1,0,0,0-2,0v3.184a3,3,0,1,0,2,0Z"
+                              ></path>
+                              <path
+                                d="M21,18.184V16a1,1,0,0,0-.445-.832l-3-2a1,1,0,0,0-1.11,1.664L19,16.535v1.649a3,3,0,1,0,2,0Z"
+                              ></path>
+                              <path
+                                d="M6.445,13.168l-3,2A1,1,0,0,0,3,16v2.184a3,3,0,1,0,2,0V16.535l2.555-1.7a1,1,0,1,0-1.11-1.664Z"
+                              ></path>
+                            </g>
+                          </svg>
+                        </figure>
+                        <div class="text-component yx-dl">
+                          <h3 class="text-md">
+                            <a class="color-contrast-higher yx-nko" href="#0"
+                              >Quick Link One</a
+                            >
+                          </h3>
+                          <p class="color-contrast-medium">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit
+                          </p>
+                        </div>
+                      </li>
+                      <li class="yx-nkr flex gap-sm yx-tog">
+                        <figure class="yx-nki color-accent" aria-hidden="true">
+                          <svg class="yx-nks icon" viewBox="0 0 24 24">
+                            <g>
+                              <circle
+                                cx="18.5"
+                                cy="8.5"
+                                r="5.5"
+                                opacity="0.5"
+                              ></circle>
+                              <rect
+                                x="5"
+                                y="14"
+                                width="9"
+                                height="9"
+                                rx="1"
+                              ></rect>
+                              <path
+                                d="M10.932,9.752a.5.5,0,0,0,0-.5l-4.5-8a.52.52,0,0,0-.872,0l-4.5,8A.5.5,0,0,0,1.5,10h9A.5.5,0,0,0,10.932,9.752Z"
+                              ></path>
+                            </g>
+                          </svg>
+                        </figure>
+                        <div class="text-component yx-dl">
+                          <h3 class="text-md">
+                            <a class="color-contrast-higher yx-nko" href="#0"
+                              >Quick Link Two</a
+                            >
+                          </h3>
+                          <p class="color-contrast-medium">
+                            Lorem ipsum dolor sit amet consectetur
+                          </p>
+                        </div>
+                      </li>
+                      <li class="yx-nkr flex gap-sm yx-tog">
+                        <figure class="yx-nki" aria-hidden="true">
+                          <svg class="yx-nks icon" viewBox="0 0 24 24">
+                            <g>
+                              <path
+                                d="M23,15h-3v-2h2V2H2v11h3v2H1c-0.553,0-1-0.448-1-1V1c0-0.552,0.447-1,1-1h22 c0.553,0,1,0.448,1,1v13C24,14.552,23.553,15,23,15z"
+                                opacity="0.5"
+                              ></path>
+                              <path
+                                d="M20.561,19.439l-6.211-6.211L20,10L5,6l4,15l3.229-5.65l6.211,6.211c0.586,0.586,1.535,0.586,2.121,0 C21.146,20.975,21.146,20.025,20.561,19.439z"
+                              ></path>
+                            </g>
+                          </svg>
+                        </figure>
+                        <div class="text-component yx-dl">
+                          <h3 class="text-md">
+                            <a class="color-contrast-higher yx-nko" href="#0"
+                              >Quick Link Three</a
+                            >
+                          </h3>
+                          <p class="color-contrast-medium">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="yx-sz">
+                  <header class="yx-lb">
+                    <div class="flex flex-column gap-xxs yx-tos yx-tom yx-tow">
+                      <h2 class="text-lg">Users</h2>
+                      <p><a href="users.html">All users →</a></p>
+                    </div>
+                  </header>
+                  <div class="yx-nyk padding-md">
+                    <ul class="yx-nkn">
+                      <li class="yx-nkr flex gap-sm yx-tog">
+                        <figure class="yx-nki">
+                          <img
+                            class="block yx-me yx-ge object-cover"
+                            src="assets/img/list-v3-img-1.jpg"
+                            alt="Image description"
+                          />
+                        </figure>
+                        <div class="text-component yx-dl">
+                          <h3 class="text-md">
+                            <a
+                              class="color-contrast-higher yx-nko"
+                              href="author.html"
+                              >Olivia Saturday</a
+                            >
+                          </h3>
+                          <p class="color-contrast-medium">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit
+                          </p>
+                        </div>
+                      </li>
+                      <li class="yx-nkr flex gap-sm yx-tog">
+                        <figure class="yx-nki">
+                          <img
+                            class="block yx-me yx-ge object-cover"
+                            src="assets/img/list-v3-img-2.jpg"
+                            alt="Image description"
+                          />
+                        </figure>
+                        <div class="text-component yx-dl">
+                          <h3 class="text-md">
+                            <a
+                              class="color-contrast-higher yx-nko"
+                              href="author.html"
+                              >David Smith</a
+                            >
+                          </h3>
+                          <p class="color-contrast-medium">
+                            Lorem ipsum dolor sit amet consectetur
+                          </p>
+                        </div>
+                      </li>
+                      <li class="yx-nkr flex gap-sm yx-tog">
+                        <figure class="yx-nki">
+                          <img
+                            class="block yx-me yx-ge object-cover"
+                            src="assets/img/list-v3-img-3.jpg"
+                            alt="Image description"
+                          />
+                        </figure>
+                        <div class="text-component yx-dl">
+                          <h3 class="text-md">
+                            <a
+                              class="color-contrast-higher yx-nko"
+                              href="author.html"
+                              >Marta Rossi</a
+                            >
+                          </h3>
+                          <p class="color-contrast-medium">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </main>
+    </div>
+{% endblock %}
