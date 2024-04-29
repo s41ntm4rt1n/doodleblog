@@ -1,7 +1,9 @@
+from pathlib import Path
 import environ
+
 env=environ.Env()
 environ.Env.read_env()
-from pathlib import Path
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,6 +49,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'articles.context_processors.author_article_count',
             ],
         },
     },

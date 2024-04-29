@@ -8,7 +8,18 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, EmailMessage
 from django.utils import timezone
 
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from articles.forms import CustomPasswordChangeForm
 
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
+from articles.forms import CustomPasswordChangeForm
+
+class CustomPasswordChangeView(auth_views.PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'registration/password.html'
+    success_url = reverse_lazy('index')
 
 def Signup(request):
     if request.method == 'POST':
