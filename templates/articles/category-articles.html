@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gy yx-padding-rr">
+          <ul class="grid gap-lg">
+            <!-- popup -->
+            <li>
+              <header class="yx-lb">
+                <div class="d-flex justify-content-between gap-xxs yx-tos yx-tom yx-tow">
+                  <h2 class="text-lg">Articles</h2>
+                  <p>
+                    <a href="new-article.html">+ New</a>
+                    <span class="yx-color-u">|</span>
+                    <a href="articles.html">All articles →</a>
+                  </p>
+                </div>
+              </header>
+              {% if articles %}
+              <div class="yx-nyk yx-padding-nm yx-padding-ti yx-padding-g">
+                <div class="yx-padding-re yx-border-n" data-table-controls="table-id">
+                  <ul class="d-flex justify-content-between gap-xxs yx-tos yx-tog">
+                    <li class="yx-tfc justify-content-end">
+                      <form class="yx-nxc js-expandable-search" style="--expandable-search-icon-size: 1.25em; --expandable-search-size-expanded: 12em;">
+                        <label class="sr-only" for="expandable-search" >Filter articles</label>
+                        <input class="reset yx-nxh js-expandable-search__input" type="search" name="expandable-search" id="expandable-search" placeholder="Search articles"/>
+                        <button class="reset yx-nxd">
+                          <svg class="icon" viewBox="0 0 20 20">
+                            <title>Search</title>
+                            <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+                              <circle cx="8" cy="8" r="6"></circle>
+                              <line x1="12.243" y1="12.243" x2="18" y2="18"></line>
+                            </g>
+                          </svg>
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+                <div id="table-id" class="int-table js-int-table">
+                  <div class="yx-rte">
+                    <table class="yx-rtt" aria-label="Interactive table example">
+                      <thead class="yx-rtn js-int-table__header">
+                        <tr class="yx-rti">
+                          
+                          <th class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort">
+                            <div class="flex items-center">
+                              <span>Title</span>
+                              <svg class="icon yx-ac yx-cp yx-rtf" aria-hidden="true" viewBox="0 0 12 12">
+                                <polygon class="yx-rtl" points="6 0 10 5 2 5 6 0"></polygon>
+                                <polygon class="yx-rtc" points="6 12 2 7 10 7 6 12"></polygon>
+                              </svg>
+                            </div>
+                            <ul class="sr-only js-int-table__sort-list">
+                              <li><input type="radio" name="sorting-title" id="sorting-title-none" value="none" checked="checked"><label for="sorting-title-none">No sorting</label></li>
+                              <li><input type="radio" name="sorting-title" id="sorting-title-asc" value="asc"><label for="sorting-title-asc">Sort in ascending order</label></li>
+                              <li><input type="radio" name="sorting-title" id="sorting-title-des" value="desc"><label for="sorting-title-des">Sort in descending order</label></li>
+                            </ul>
+                          </th>
+                          <th class="int-table__cell yx-rto yx-pj">Author</th>
+                          <th class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort" data-date-format="dd-mm-yyyy">
+                            <div class="flex items-center yx-fu">
+                              <span>Date</span>
+                              <svg class="icon yx-ac yx-cp yx-rtf" aria-hidden="true" viewBox="0 0 12 12">
+                                <polygon class="yx-rtl" points="6 0 10 5 2 5 6 0"></polygon>
+                                <polygon class="yx-rtc" points="6 12 2 7 10 7 6 12"></polygon>
+                              </svg>
+                            </div>
+                            <ul class="sr-only js-int-table__sort-list">
+                              <li><input type="radio" name="sorting-date" id="sorting-date-none" value="none" checked="checked"><label for="sorting-date-none">No sorting</label></li>
+                              <li><input type="radio" name="sorting-date" id="sorting-date-asc" value="asc"><label for="sorting-date-asc">Sort in ascending order</label></li>
+                              <li><input type="radio" name="sorting-date" id="sorting-date-des" value="desc"><label for="sorting-date-des">Sort in descending order</label></li>
+                            </ul>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="yx-rtr js-int-table__body">
+                        {% for article in page_obj %}
+                          <tr class="yx-rti">
+                            <td class="int-table__cell max-width-xxxxs"><a href="{% url 'article' article_slug=article.slug %}">{{article.title}}</a></td>
+                            <td class="int-table__cell"><a href="{{article.author.get_absolute_url}}">{{article.author}}</a></td>
+                            <td class="int-table__cell yx-pq">{{article.created_at}}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between yx-padding-g">
+                  <p> {{category.get_article_count}} results</p>
+                  {% include 'components/pagination.html' %}
+                </div>
+              </div>
+              {%endif%}
+            </li>
+          </ul>
+        </div>
+      </main>
+    </div>
+{% endblock %}

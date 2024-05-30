@@ -49,7 +49,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'articles.context_processors.author_article_count',
+                'articles.context_processors.articles_count',
+                'articles.context_processors.categories_count',
+                'articles.context_processors.credentials',
+                'articles.context_processors.members_count',
+                'articles.context_processors.article_search_form',
+                
             ],
         },
     },

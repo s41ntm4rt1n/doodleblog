@@ -1,25 +1,46 @@
 # from .forms import NewsLetterSubscriptionForm
 from .models import *
 from django.shortcuts import get_object_or_404
+from .forms import *
 
-# def cart_items_count(request):
-#     if request.user.is_authenticated:
-#         customer=get_object_or_404(Customer, user=request.user)
-#         cart = Cart.objects.filter(user=customer, ordered=False).first()
-#         if cart:
-#             return {'cart_items_count': cart.get_items_count}
-#     return {'cart_items_count': 0}
+def articles_count(request):
+    articles=Article.objects.all()
+    if articles:
+        article_count=0
+        for article in articles:
+            article_count+=1
+        return{"article_count":article_count}
+    return{"article_count":0}
+            
+def members_count(request):
+    members=Member.objects.all()
+    if members:
+        member_count=0
+        for member in members:
+            member_count+=1
+        return{"member_count":member_count}
+    return{"member_count":0}
+            
+def categories_count(request):
+    categories=Category.objects.all()
+    if categories:
+        category_count=0
+        for category in categories:
+            category_count+=1
+        return{"category_count":category_count}
+    return{"category_count":0}
 
-
-def author_article_count(request):
+def credentials(request):
     if request.user.is_authenticated:
-        author=get_object_or_404(Author, user=request.user)
-        articles=Article.objects.filter(author=author)
-        
-        if articles:
-            article_count=0
-            for article in articles:
-                article_count+=1
-            return{"article_count":article_count}
-        return{"article_count":0}
-    return{"article_count":0}   
+        try:
+            member= get_object_or_404(Member, user=request.user)
+        except Member.DoesNotExist:
+            member = None
+
+        return {'member': member}
+    member = None
+    return {'member': member}
+
+
+def article_search_form(request):
+    return {'article_search_form': ArticleSearchForm()}

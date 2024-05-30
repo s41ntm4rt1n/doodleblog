@@ -3,18 +3,25 @@ from .models import *
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
+class ArticleSearchForm(forms.Form):
+    query = forms.CharField(
+        max_length=100,
+        label='Search Articles',
+        widget=forms.TextInput(attrs={'class': 'reset yx-nxh js-expandable-search__input', 'placeholder': 'Search articles...', 'required': 'required', 'name': 'query', 'id': 'query'})
+    )
+
+
 class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model=Article
-        fields = ['category', 'author', 'title', 'body', 'featured_image', 'status']
-        # widgets = {
-        #     'category': forms.Select(attrs={'class': 'input-text', 'id': 'category'}),
-        #     'author': forms.TextInput(attrs={'class': 'input-text', 'id': 'author'}),
-        #     'title': forms.TextInput(attrs={'class': 'input-text', 'id': 'title'}),
-        #     'body': forms.Textarea(attrs={'class': 'input-textarea', 'id': 'body'}),
-        #     'featured_image': forms.FileInput(attrs={'class': 'input-file', 'id': 'featured_image'}),
-        #     'status': forms.Select(attrs={'class': 'input-select', 'id': 'status'}),
-        # }
+        fields = ['category', 'author', 'title', 'body', 'status']
+        widgets = {
+            'author': forms.TextInput(attrs={'class': 'input-text', 'id': 'author'}),
+            'title': forms.TextInput(attrs={'class': 'input-text', 'id': 'title'}),
+            'body': forms.Textarea(attrs={'class': 'form-control yx-me js-md-editor__content', 'id': 'md-editor-content', "rows": "12", 'required':True}),
+            'status': forms.Select(attrs={'class': 'input-select', 'id': 'status'}),
+        }
+    
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         label='Old Password',

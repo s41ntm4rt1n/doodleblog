@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gy yx-padding-rr">
+          <header class="yx-lb">
+            <div class="d-flex justify-content-between gap-xxs yx-tos yx-tom yx-tow">
+              <h1 class="text-lg">Articles</h1>
+              <p><a href="{% url 'new_article'%}">+ New article</a></p>
+            </div>
+          </header>
+          <div class="yx-nyk yx-padding-nm yx-padding-ti yx-padding-g">
+            <div class="yx-padding-re yx-border-n" data-table-controls="table-id">
+              <ul class="d-flex justify-content-between gap-xxs yx-tos yx-tog">
+                <li class="yx-tfc justify-content-end">
+                  {% include 'components/articlesearchform.html' %}
+                </li>
+              </ul>
+            </div>
+            {% include 'articles/table.html' %}
+          </div>
+        </div>
+      </main>
+    </div>
+    {% endblock %}

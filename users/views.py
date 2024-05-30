@@ -7,11 +7,11 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, EmailMessage
 from django.utils import timezone
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from articles.forms import CustomPasswordChangeForm
-
+from articles.models import Member
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from articles.forms import CustomPasswordChangeForm
@@ -50,7 +50,7 @@ def Signup(request):
                 return redirect('signup')
             
             user = get_user_model().objects.create_user(username=username, password=password1, email=email, first_name=first_name, last_name=last_name, is_active=False)
-            
+            member=Member.objects.create(user=user, name=f'{first_name} {last_name}')
                         
             messages.success(request, "Your account has been created successfully. An OTP was sent to your email.")
             return redirect('verify_email', username=username)
@@ -86,8 +86,44 @@ def VerifyEmail(request, username):
         
     context = {}
     return render(request, "registration/verifyemail.html", context)
-    
 
+@login_required    
+def ChangeEmail(request, slug):
+    # user inputs new email
+    # the registered user model is fetched and email changed
+    # user is redirected to email verification
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            user_email = request.POST["email"]
+            
+            if get_user_model().objects.filter(username=slug).exists():
+                user = get_user_model().objects.get(username=slug)
+                user.email=user_email
+                user.save()
+                
+                otp = OTPToken.objects.create(user=user, expires_at=timezone.now() + timezone.timedelta(minutes=10))
+                # email variables
+                subject="Resend OTP"
+                context = {
+                'username': user.username,
+                'otp': otp.otp_code ,
+                }
+                html_content = render_to_string('registration/otp.html', context)
+                email = EmailMessage(
+                    subject,
+                    html_content,
+                    'MS_AIFmlp@robotsaint.com',
+                    [user.email]
+                )
+                email.content_subtype = "html"
+                email.send()
+                    
+                messages.success(request, "An OTP has been sent to your new email address")
+                return redirect("verify_email", username=user.username)
+    context = {}
+    return render(request, "users/change-email.html", context)
+                
+        
 def ResendOtp(request):
     if request.method == 'POST':
         user_email = request.POST["Email"]
@@ -111,7 +147,7 @@ def ResendOtp(request):
             email.content_subtype = "html"
             email.send()
                 
-            messages.success(request, "A new OTP has been sent to your email-address")
+            messages.success(request, "A new OTP has been sent to your email address")
             return redirect("verify_email", username=user.username)
 
         else:
@@ -138,6 +174,7 @@ def Login(request):
     else:
         return render(request, "registration/login.html")
 
+@login_required
 def Logout(request):
     logout(request)
     messages.error(request, 'You have been logged out!')

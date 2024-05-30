@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile for {{user.username|capfirst}}{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gm yx-padding-rr">
+          <header class="yx-lw">
+            <h1 class="text-lg">Profile for {{member.name}}</h1>
+          </header>
+          {% if member %}
+          
+          <ul class="grid gap-sm">
+            <li>
+              <div class="flex yx-a_ items-center gap-xs">
+                <figure class="yx-nbc yx-xy yx-wd yx-fi">
+                  {% if member.has_image %}
+                  <img class="block yx-me yx-ge object-cover" src="{{member.image.url}}" alt="{{member.name}}">
+                  {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                  </svg>
+                  {% endif %}
+                </figure>
+            </li>
+            <li><label class="form-label margin-bottom-xxs" for="user-name">Full Name</label> <input class="form-control yx-me" type="text" name="user-name" id="user-name" value="{{member.name}}" disabled></li>
+            <li>
+              <label class="form-label margin-bottom-xxs" for="user-slug">Slug</label> <input class="form-control yx-me" type="text" name="user-slug" id="user-slug" value="{{member.slug}}" disabled>
+              <p class="text-xs color-contrast-medium yx-la">URL-friendly version of the name</p>
+            </li>
+            <li><label class="form-label margin-bottom-xxs" for="user-email">Email</label> <input class="form-control yx-me" type="text" name="user-email" id="user-email" value="{{member.user.email}}" disabled></li>
+            <li>
+              <label class="form-label margin-bottom-xxs" for="select-this">Role</label>
+              <div class="select" style="--select-icon-right-margin: var(--space-xs); --select-icon-size: 12px;">
+                <select class="yx-nwx btn btn--subtle" name="select-this" id="select-this" disabled>
+                  {% if member.is_author == True %}
+                  <option>Author</option>
+                  {% elif member.is_moderator == True %}
+                  <option>Moderator</option>
+                  {% else %}
+                  <option>Member</option>
+                  {% endif %}
+                </select>
+              </div>
+            </li>
+            <li class="yx-pq"><a class="text-sm color-accent yx-cr" href="{% url 'edit_user' slug=member.slug %}" aria-controls="dialog-delete-confirmation"><button class="btn btn--primary btn--accent yx-padding-nm"> Edit Details</button></a> <a class="text-sm color-accent yx-cr" href="{% url 'change_password' %}" aria-controls="dialog-update-confirmation"> <button class="btn btn--primary yx-padding-nm">Change Password</button></a></li>
+          </ul>
+        
+          {% endif %}
+        </div>
+      </main>
+    </div>
+    {% endblock %}
+

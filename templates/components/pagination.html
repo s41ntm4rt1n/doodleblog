@@ -1,0 +1,44 @@
+<nav class="pagination m-2" aria-label="Pagination">
+    <ul class="yx-n_d flex yx-a_ gap-xxxs">
+      {% if page_obj.has_previous %}
+      <li>
+        <a href="?page={{ page_obj.previous_page_number }}" class="yx-n_m">
+          <svg class="icon" viewBox="0 0 16 16">
+            <title>Go to previous page</title>
+            <g stroke-width="2" stroke="currentColor">
+              <polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="9.5,3.5 5,8 9.5,12.5 "></polyline>
+            </g>
+          </svg>
+        </a>
+      </li>
+      {% if page_obj.number > 3 %}
+      <li class="display@sm yx-n_m">
+        <a href="?page=1" class="pagination__item">1</a>
+      </li>
+      {% if page_obj.number > 4 %}
+        <li class="display@sm yx-n_m" aria-hidden="true">
+          <span class="pagination__item pagination__item--ellipsis">...</span>
+        </li>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li><span class="yx-n_w flex items-center"><input class="form-control" type="text" id="pageNumber" name="pageNumber" value="{{num}}"><em>of {{page_obj.paginator.num_pages}}</em></span>
+      </li>
+      {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li>
+        <a href="?page={{ page_obj.next_page_number }}" class="yx-n_m">
+          <svg class="icon" viewBox="0 0 16 16">
+            <title>Go to next page</title>
+            <g stroke-width="2" stroke="currentColor">
+              <polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline>
+            </g>
+          </svg>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>

@@ -3,6 +3,11 @@
 {% block title %}Login{%endblock%}
 
 {% block content%}
+{% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
     <div class="yx-t yx-gp yx-hg">
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
@@ -17,12 +22,12 @@
           </a>
         </div>
         <h1 class="sr-only">Log in</h1>
-        <div class="yx-lb"><label class="form-label yx-ly" for="Email">Email</label> <input class="form-control yx-me" type="email" name="Email" id="Email" placeholder="email@myemail.com"></div>
+        <div class="yx-lb"><label class="form-label yx-ly" for="Email">Email</label> <input class="form-control yx-me" type="email" name="Email" id="Email" placeholder="email@myemail.com" required></div>
         <div class="yx-lb">
-          <div class="flex justify-between yx-ly"><label class="form-label" for="password">Password</label> <span class="text-sm"><a class="color-contrast-higher" href="{% url 'reset_password' %}">Forgot Password?</a></span></div>
-          <input class="form-control yx-me" type="password" name="Password1" id="Password1">
+          <div class="flex justify-between yx-ly"><label class="form-label" for="password" >Password</label> <span class="text-sm"><a class="color-contrast-higher" href="{% url 'reset_password' %}">Forgot Password?</a></span></div>
+          <input class="form-control yx-me" type="password" name="Password1" id="Password1" required>
         </div>
-        <div class="yx-lb"><button class="btn btn--primary btn--md yx-me">Login</button></div>
+        <div class="yx-lb"><button class="btn btn--primary btn--md yx-me" type="submit">Login</button></div>
         <div class="yx-p_">
           <p class="text-sm color-contrast-medium">Don't have an account? <a class="color-contrast-higher" href="{% url 'signup' %}">Get started</a></p>
         </div>

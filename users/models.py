@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS=['username']
     
     def __str__(self):
-        return self.email
+        return self.username
     
 class OTPToken(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='otps')
@@ -22,7 +22,7 @@ class OTPToken(models.Model):
     expires_at=models.DateTimeField( null=True, blank=True)
     
     def __str__(self):
-        return self.user.username
+        return f"Otp token for {self.user.username}" 
     
 def user_images_upload_to(instance, filename):
     username = instance.user

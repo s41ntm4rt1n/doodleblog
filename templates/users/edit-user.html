@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit - {{user.username|capfirst}}{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gm yx-padding-rr">
+          <header class="yx-lw">
+            <h1 class="text-lg">Edit User</h1>
+          </header>
+          {% if member %}
+          <form method="post" action="{{member.get_edit_url}}" enctype="multipart/form-data">
+            {% csrf_token %}
+          <ul class="grid gap-sm">
+            <li>
+              <div class="flex yx-a_ items-center gap-xs">
+                <figure class="yx-nbc yx-xy yx-wd yx-fi">
+                  {% if member.has_image %}
+                  <img class="block yx-me yx-ge object-cover" src="{{member.image.url}}" alt="{{member.name}}">
+                  {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                  </svg>
+                  {% endif %}
+                </figure>
+                <div class="file-upload yx-fd">
+                    <label for="image" class="yx-nxv btn btn--subtle text-sm yx-padding-nq yx-padding-np">
+                        <span class="file-upload__text yx-nxg">Upload new picture</span></label>
+                         <input type="file" class="yx-nxm" name="image" id="image" accept="image/*">
+                </div>
+                <a class="reset link text-sm color-accent cursor-pointer" href="{{member.get_image_delete_url}}" id="delete-image">Delete</a>
+              </div>
+            </li>
+            <li><label class="form-label margin-bottom-xxs" for="name">Full Name</label> <input class="form-control yx-me" type="text" name="name" id="name" value="{{member.name}}" required></li>
+            <li>
+              <label class="form-label margin-bottom-xxs" for="slug">Slug</label> <input class="form-control yx-me" type="text" name="slug" id="slug" value="{{member.slug}}" disabled>
+              <p class="text-xs color-contrast-medium yx-la">URL-friendly version of the username</p>
+            </li>
+            <li><label class="form-label margin-bottom-xxs" for="email">Email</label> <input class="form-control yx-me" type="text" name="email" id="email" value="{{member.user.email}}" disabled>
+                <a class="text-white" href="{% url 'change_email' slug=member.slug %}"><p class="text-xs color-contrast-medium yx-la">Change email</p></a></li>
+            <li>
+              <label class="form-label margin-bottom-xxs" for="select-this">Role</label>
+              <div class="select" style="--select-icon-right-margin: var(--space-xs); --select-icon-size: 12px;">
+                <select class="yx-nwx btn btn--subtle" name="select-this" id="select-this" disabled>
+                  <option value="Author">Author</option>
+                  <option value="Moderator">Moderator</option>
+                  <option value="Member">Member</option>
+                </select>
+              </div>
+            </li>
+            <li class="yx-pq"><a class="text-sm color-accent yx-cr"> <button class="btn btn--primary yx-padding-nm" type="submit">Save</button></a></li>
+          </ul>
+        </form>
+          {% endif %}
+        </div>
+      </main>
+    </div>
+    {% endblock %}
+

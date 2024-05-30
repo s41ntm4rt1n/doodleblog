@@ -2,8 +2,14 @@
 {% block title %}Sign Up{% endblock %}
 {% block content %}
   <body>
+    {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
     <div class="yx-t yx-gp yx-hg">
-      <form>
+      <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
         <div class="yx-p_ yx-lw">
           <a class="yx-fd yx-nbl yx-nyy" href="{% url 'index' %}">
             <svg class="block" viewBox="0 0 40 40">
@@ -28,10 +34,10 @@
         <div class="yx-lb"><label class="form-label yx-ly" for="Email">Email</label> <input required class="form-control yx-me" type="email" name="Email" id="Email" placeholder="email@myemail.com"></div>
         <div class="yx-lb"><label class="form-label yx-ly" for="Username">Username</label> <input required class="form-control yx-me" type="text" name="Username" id="Username"></div>
         <div class="yx-lw">
-          <label class="form-label yx-ly" for="Password1">Password</label> <input required class="form-control yx-me" type="password" name="Password1" id="Password1">
+          <label class="form-label yx-ly" for="Password1">Password</label> <input required class="form-control yx-me" type="password" name="Password1" id="Password1" minlength="6">
           <p class="text-xs color-contrast-medium yx-la">Minimum 6 characters</p>
         </div>
-        <div class="yx-lw"><label class="form-label yx-ly" for="Password2">Password</label> <input required class="form-control yx-me" type="password" name="Password2" id="Password2">
+        <div class="yx-lw"><label class="form-label yx-ly" for="Password2">Password</label> <input required class="form-control yx-me" type="password" name="Password2" id="Password2" minlength="6">
           <p class="text-xs color-contrast-medium yx-la">Repeat your Password</p>
         </div>
         <div class="yx-lb"><button class="btn btn--primary btn--md yx-me">Join</button></div>

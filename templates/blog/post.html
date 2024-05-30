@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load markdown_extras %}
+{% block title %}{{article.title}}{% endblock %}
+{% block styles %}
+<style>
+  .comments__content{
+    width: 50vw;
+    margin-left: 1vw;
+  }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm ">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+  <article class="ad5-padding-y-lg">
+    <header class="ad5-container ad5-max-width-xs ad5-margin-bottom-lg">
+      <div class="ad5-flex ad5-justify-center mb-2"><span class="yx-fd yx-bg-d yx-bg-ti text-xs yx-padding-np yx-padding-nj yx-xb">{{article.category}}</span></div>
+
+      <div class="ad5-text-component ad5-text-center ad5-line-height-lg ad5-text-gap-md ad5-margin-bottom-md">
+        <h1>{{article.title}}</h1>
+      </div>
+      <div class="ad5-flex ad5-justify-center">
+        <div class="author author--meta">
+          {% if article.author.member.has_image %}
+            <div class="flex yx-a_ items-center gap-xs">
+                <figure class="yx-nbc yx-xy yx-wd yx-fi"><img class="block yx-me yx-ge object-cover" src="{% static 'assets/img/assets-img-4.jpg' %}" alt="Author Image"></figure>
+              </div>
+          {% else %}
+          <div class="flex yx-a_ items-center gap-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+          </div>
+          {%endif%}
+  
+          <div class="author__content ad5-text-component ad5-text-gap-2xs ms-3">
+            <h4 class="ad5-text-base"><a href="{{article.author.get_absolute_url}}" rel="author">{{article.author}}</a></h4>
+            <p class="ad5-text-sm ad5-color-contrast-medium"><time> Updated at - {{article.updated_at}}</time> &mdash; 5 min read</p>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    <figure class="d-flex justify-content-center ad5-max-width-lg ad5-margin-bottom-lg">
+      {% if article.has_image %}
+      <img class=" ad5-radius-lg" src="{{article.get_image}}" alt="{{article.title}}" style="aspect-ratio: 1/1;">
+      {%endif%}
+    </figure>
+  
+    <div class="ad5-container ad5-max-width-adaptive-sm">
+        <div class="ad5-text-component ad5-line-height-lg ad5-text-gap-md">
+            <p>{{article.formatted_body|markdown|safe}}</p>
+        </div>
+    </div>
+  </article>
+  <div class="container d-flex justify-content-center p-5">
+    <section class="comments">
+      <div class="margin-bottom-lg">
+        <div class="d-flex gap-sm flex-column flex-row@md justify-content-between items-center@md">
+          <div>
+            <h1 class="text-md">Comments</h1>
+          </div>
+          <form aria-label="Choose sorting option">
+            <div class="d-flex flex-wrap gap-sm text-sm">
+              <div class="position-relative"><input class="comments__sorting-label" type="radio" name="sortComments" id="sortCommentsPopular" checked="checked"> <label for="sortCommentsPopular">Popular</label></div>
+              <div class="position-relative"><input class="comments__sorting-label" type="radio" name="sortComments" id="sortCommentsNewest"> <label for="sortCommentsNewest">Newest</label></div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <ul class="margin-bottom-lg">
+        <li class="comments__comment">
+          <div class="d-flex justify-content-start">
+            <a href="#0" class="comments__author-img">
+              <figure class="yx-nbc yx-xy yx-wd yx-fi"><img class="block yx-me yx-ge object-cover" src="{% static 'assets/img/assets-img-4.jpg' %}" alt="Author Image"></figure></a>
+            <div class="comments__content margin-top-3xs" >
+              <div class="text-component text-sm text-component--tight read-more js-read-more" data-characters="150" data-btn-class="comments__readmore-btn ">
+                <p><a href="#0" class="comments__author-name" rel="author">Olivia Gribben</a></p>
+                <p class="position-relative">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, accusantium consequatur. Perspiciatis!Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, accusantium consequatur. Perspiciatis!Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, accusantium consequatur. Perspiciatis!</p>
+              </div>
+              <div class="margin-top-xs text-sm">
+                <div class="d-flex gap-2xs items-center">
+                  <button class="comments__vote-btn js-comments__vote-btn" data-label="Like this comment along with 5 other people" aria-pressed="false">
+                    <span class="comments__vote-icon-wrapper">
+                      <svg class="icon block" viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M11.045,2.011a3.345,3.345,0,0,0-4.792,0c-.075.075-.15.225-.225.3-.075-.074-.15-.224-.225-.3a3.345,3.345,0,0,0-4.792,0,3.345,3.345,0,0,0,0,4.792l5.017,4.718L11.045,6.8A3.484,3.484,0,0,0,11.045,2.011Z"></path>
+                      </svg>
+                    </span>
+                    <span class="margin-left-3xs js-comments__vote-label" aria-hidden="true">5</span>
+                  </button>
+                  <span class="comments__inline-divider" aria-hidden="true"></span> <button class="comments__label-btn">Reply</button> <span class="comments__inline-divider" aria-hidden="true"></span> <time class="comments__time" aria-label="1 hour ago">1h</time>
+                </div>
+              </div>
+            </div>
+          </div>
+          <details class="comments__details details js-details">
+            <summary class="details__summary color-primary js-details__summary text-sm" role="button">
+              <span class="d-flex items-center">
+                <svg class="icon icon--2xs margin-right-2xs" aria-hidden="true" viewBox="0 0 12 12">
+                  <path d="M2.783.088A.5.5,0,0,0,2,.5v11a.5.5,0,0,0,.268.442A.49.49,0,0,0,2.5,12a.5.5,0,0,0,.283-.088l8-5.5a.5.5,0,0,0,0-.824Z"></path>
+                </svg>
+                <span>View 2 replies</span>
+              </span>
+            </summary>
+            <div class="details__content js-details__content">
+              <ul>
+                <li class="comments__comment">
+                  <div class="d-flex justify-content-start">
+                    <a href="#0" class="comments__author-img"><figure class="yx-nbc yx-xy yx-wd yx-fi"><img class="block yx-me yx-ge object-cover" src="{% static 'assets/img/assets-img-4.jpg' %}" alt="Author Image"></figure></a>
+                    <div class="comments__content margin-top-3xs">
+                      <div class="text-component text-sm text-component--tight read-more js-read-more" data-characters="150" data-btn-class="comments__readmore-btn ">
+                        <p><a href="#0" class="comments__author-name" rel="author">Olivia Gribben</a></p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, accusantium consequatur. Perspiciatis!</p>
+                      </div>
+                      <div class="margin-top-xs text-sm">
+                        <div class="d-flex gap-2xs items-center">
+                          <button class="comments__vote-btn js-comments__vote-btn" data-label="Like this comment along with 5 other people" aria-pressed="false">
+                            <span class="comments__vote-icon-wrapper">
+                              <svg class="icon block" viewBox="0 0 12 12" aria-hidden="true">
+                                <path d="M11.045,2.011a3.345,3.345,0,0,0-4.792,0c-.075.075-.15.225-.225.3-.075-.074-.15-.224-.225-.3a3.345,3.345,0,0,0-4.792,0,3.345,3.345,0,0,0,0,4.792l5.017,4.718L11.045,6.8A3.484,3.484,0,0,0,11.045,2.011Z"></path>
+                              </svg>
+                            </span>
+                            <span class="margin-left-3xs js-comments__vote-label" aria-hidden="true">5</span>
+                          </button>
+                          <span class="comments__inline-divider" aria-hidden="true"></span> <button class="comments__label-btn">Reply</button> <span class="comments__inline-divider" aria-hidden="true"></span> <time class="comments__time" aria-label="1 hour ago">1h</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="comments__comment">
+                  <div class="d-flex justify-content-start">
+                    <a href="#0" class="comments__author-img"><figure class="yx-nbc yx-xy yx-wd yx-fi"><img class="block yx-me yx-ge object-cover" src="{% static 'assets/img/assets-img-4.jpg' %}" alt="Author Image"></figure></a>
+                    <div class="comments__content margin-top-3xs">
+                      <div class="text-component text-sm text-component--tight read-more js-read-more" data-characters="150" data-btn-class="comments__readmore-btn ">
+                        <p><a href="#0" class="comments__author-name" rel="author">Olivia Gribben</a></p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, accusantium consequatur. Perspiciatis!</p>
+                      </div>
+                      <div class="margin-top-xs text-sm">
+                        <div class="d-flex gap-2xs items-center">
+                          <button class="comments__vote-btn js-comments__vote-btn" data-label="Like this comment along with 5 other people" aria-pressed="false">
+                            <span class="comments__vote-icon-wrapper">
+                              <svg class="icon block" viewBox="0 0 12 12" aria-hidden="true">
+                                <path d="M11.045,2.011a3.345,3.345,0,0,0-4.792,0c-.075.075-.15.225-.225.3-.075-.074-.15-.224-.225-.3a3.345,3.345,0,0,0-4.792,0,3.345,3.345,0,0,0,0,4.792l5.017,4.718L11.045,6.8A3.484,3.484,0,0,0,11.045,2.011Z"></path>
+                              </svg>
+                            </span>
+                            <span class="margin-left-3xs js-comments__vote-label" aria-hidden="true">5</span>
+                          </button>
+                          <span class="comments__inline-divider" aria-hidden="true"></span> <button class="comments__label-btn">Reply</button> <span class="comments__inline-divider" aria-hidden="true"></span> <time class="comments__time" aria-label="1 hour ago">1h</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </details>
+        </li>
+      </ul>
+      <form>
+        <fieldset>
+          <legend class="form-legend">Add a new comment</legend>
+          <div class="margin-bottom-xs"><label class="sr-only" for="commentNewContent">Your comment</label> <textarea class="form-control width-100%" name="commentNewContent" id="commentNewContent"></textarea></div>
+          <div><button class="btn btn--primary">Post comment</button></div>
+        </fieldset>
+      </form>
+    </section>
+  </div>
+</main>
+</div>
+  {% endblock %}

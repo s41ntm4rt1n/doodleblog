@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gy yx-padding-rr">
+          <header class="yx-lb">
+            <div class="d-flex justify-content-between gap-xxs yx-tos yx-tom yx-tow">
+              <h1 class="text-lg">Users</h1>
+              <p><a href="new-user.html">+ New user</a></p>
+            </div>
+          </header>
+          <div class="yx-nyk yx-padding-nm yx-padding-ti yx-padding-g">
+            <div class="yx-padding-re yx-border-n" data-table-controls="table-id">
+              <ul class="flex flex-column gap-xxs yx-tos yx-tog">
+                <li class="yx-padding-tm is-hidden js-int-table-actions__items-selected">
+                  <div class="flex items-center gap-xxxs">
+                    <div class="select" style="--select-icon-size: 12px;">
+                      <select class="yx-nwx btn btn--subtle" name="select-bulk-action" id="select-bulk-action" aria-label="Bulk actions">
+                        <option value="0">Bulk actions</option>
+                        <option value="1">Action 1</option>
+                        <option value="2">Action 2</option>
+                        <option value="3">Action 3</option>
+                      </select>
+                      <svg class="icon yx-nwk" aria-hidden="true" viewBox="0 0 12 12">
+                        <polyline points="1 4 6 9 11 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                      </svg>
+                    </div>
+                    <button class="btn btn--primary">Apply</button>
+                  </div>
+                </li>
+                <li class>
+                  <div class="flex yx-a_ items-center gap-xxxs">
+                    <div class="select" style="--select-icon-size: 12px;">
+                      <select class="yx-nwx btn btn--subtle" name="select-role" id="select-role">
+                        <option value="0">All roles</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Member</option>
+                      </select>
+                      <svg class="icon yx-nwk" aria-hidden="true" viewBox="0 0 12 12">
+                        <polyline points="1 4 6 9 11 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                      </svg>
+                    </div>
+                    <button class="btn btn--primary">Filter</button>
+                  </div>
+                </li>
+                <li class="yx-tfc">
+                  <form class="yx-nxc js-expandable-search" style="--expandable-search-icon-size: 1.25em; --expandable-search-size-expanded: 12em;">
+                    <label class="sr-only" for="expandable-search">Filter articles</label> <input class="reset yx-nxh js-expandable-search__input" type="search" name="expandable-search" id="expandable-search" placeholder="Search users..."> 
+                    <button class="reset yx-nxd">
+                      <svg class="icon" viewBox="0 0 20 20">
+                        <title>Search</title>
+                        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+                          <circle cx="8" cy="8" r="6"></circle>
+                          <line x1="12.243" y1="12.243" x2="18" y2="18"></line>
+                        </g>
+                      </svg>
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            <div id="table-id" class="int-table js-int-table">
+              <div class="yx-rte">
+                <table class="yx-rtt" aria-label="Interactive table example">
+                  <thead class="yx-rtn js-int-table__header">
+                    <tr class="yx-rti">
+                      <th class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort">
+                        <div class="flex items-center">
+                          <span>Name</span> 
+                          <svg class="icon yx-ac yx-cp yx-rtf" aria-hidden="true" viewBox="0 0 12 12">
+                            <polygon class="yx-rtl" points="6 0 10 5 2 5 6 0"></polygon>
+                            <polygon class="yx-rtc" points="6 12 2 7 10 7 6 12"></polygon>
+                          </svg>
+                        </div>
+                        <ul class="sr-only js-int-table__sort-list">
+                          <li><input type="radio" name="sorting-title" id="sorting-title-none" value="none" checked> <label for="sorting-title-none">No sorting</label></li>
+                          <li><input type="radio" name="sorting-title" id="sorting-title-asc" value="asc"> <label for="sorting-title-asc">Sort in ascending order</label></li>
+                          <li><input type="radio" name="sorting-title" id="sorting-title-des" value="desc"> <label for="sorting-title-des">Sort in descending order</label></li>
+                        </ul>
+                      </th>
+                      <th class="int-table__cell yx-rto yx-pj">Email</th>
+                      <th class="int-table__cell yx-rto yx-pq">Role</th>
+                    </tr>
+                  </thead>
+                  <tbody class="yx-rtr js-int-table__body">
+                    {% if members %}
+                    {% for member in page_obj %}
+                    <tr class="yx-rti">
+                      
+                      <td class="int-table__cell max-width-xxxxs">
+                        <div class="flex items-center gap-xs">
+                          {% if member.has_image %}
+                          <figure class="yx-nbf yx-xy yx-wd yx-fi"><img class="block yx-me yx-ge object-cover" src="{{member.image.url}}" alt="{{member.user.username}}"></figure>
+                          {%endif%}
+                          <a href="{{member.get_absolute_url}}">{{member.user.first_name}} {{member.user.last_name}}</a>
+                        </div>
+                      </td>
+                      <td class="int-table__cell"><a href="{{member.user.email}}" class="__cf_email__" data-cfemail="c5aaa9acb3aca485a0a8a4aca9eba6aaa8">{{member.user.email}}</a></td>
+                      {% if member %}
+                      {% if member.is_author == True %}
+                      <td class="int-table__cell yx-pq">Author</td>
+                      {% elif member.is_moderator == True %}
+                      <td class="int-table__cell yx-pq">Moderator</td>
+                      {% else %}
+                      <td class="int-table__cell yx-pq">Member</td>
+                      {% endif %}
+                      {% endif %}
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="flex items-center justify-between yx-padding-g">
+              <p>{{member_count}} results</p>
+              {% include 'components/pagination.html' %}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    {% endblock %}

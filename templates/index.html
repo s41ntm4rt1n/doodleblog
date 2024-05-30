@@ -19,47 +19,16 @@
                 <div class="d-flex justify-content-between gap-xxs yx-tos yx-tom yx-tow">
                   <h2 class="text-lg">Articles</h2>
                   <p>
-                    <a href="new-article.html">+ New</a>
+                    <a href="{% url 'new_article'%}">+ New</a>
                     <span class="yx-color-u">|</span>
-                    <a href="articles.html">All articles →</a>
+                    <a href="{% url 'articles'%}">All articles →</a>
                   </p>
                 </div>
               </header>
+              {% if articles %}
               <div class="yx-nyk yx-padding-nm yx-padding-ti yx-padding-g">
-                <nav class="yx-nqr">
-                  <ul class="yx-nqi">
-                    <li><a class="yx-nqs yx-nqo" href="#0">All (21)</a></li>
-                    <li><a class="yx-nqs" href="#0">Published (19)</a></li>
-                    <li><a class="yx-nqs" href="#0">Draft (2)</a></li>
-                  </ul>
-                </nav>
                 <div class="yx-padding-re yx-border-n" data-table-controls="table-id">
                   <ul class="d-flex justify-content-between gap-xxs yx-tos yx-tog">
-                     <li>
-                      <div class="d-flex yx-a_ justify-content-start gap-xxxs">
-                        <div class="select" style="--select-icon-size: 12px;">
-                          <select class="yx-nwx btn btn--subtle" name="select-author" id="select-author">
-                            <option value="0">All authors</option>
-                            <option value="1">Author 1</option>
-                            <option value="2">Author 2</option>
-                          </select>
-                          <svg class="icon yx-nwk" aria-hidden="true" viewBox="0 0 12 12">
-                            <polyline points="1 4 6 9 11 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
-                          </svg>
-                        </div>
-                        <div class="select" style="--select-icon-size: 12px;">
-                          <select class="yx-nwx btn btn--subtle" name="select-category" id="select-category">
-                            <option value="0">All categories</option>
-                            <option value="1">Category 1</option>
-                            <option value="2">Category 2</option>
-                          </select>
-                          <svg class="icon yx-nwk" aria-hidden="true" viewBox="0 0 12 12"> 
-                            <polyline points="1 4 6 9 11 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
-                          </svg>
-                        </div>
-                        <button class="btn btn--primary">Filter</button>
-                      </div>
-                    </li>
                     <li class="yx-tfc justify-content-end">
                       <form class="yx-nxc js-expandable-search" style="--expandable-search-icon-size: 1.25em; --expandable-search-size-expanded: 12em;">
                         <label class="sr-only" for="expandable-search" >Filter articles</label>
@@ -77,149 +46,9 @@
                     </li>
                   </ul>
                 </div>
-                <div id="table-id" class="int-table js-int-table">
-                  <div class="yx-rte">
-                    <table class="yx-rtt" aria-label="Interactive table example">
-                      <thead class="yx-rtn js-int-table__header">
-                        <tr class="yx-rti">
-                          <td class="int-table__cell">
-                            <div class="yx-nwg yx-rth">
-                              <input class="yx-nwy js-int-table__select-all" type="checkbox" aria-label="Select all rows">
-                              <div class="yx-nwb" aria-hidden="true"></div>
-                            </div>
-                          </td>
-                          <th class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort">
-                            <div class="flex items-center">
-                              <span>Title</span>
-                              <svg class="icon yx-ac yx-cp yx-rtf" aria-hidden="true" viewBox="0 0 12 12">
-                                <polygon class="yx-rtl" points="6 0 10 5 2 5 6 0"></polygon>
-                                <polygon class="yx-rtc" points="6 12 2 7 10 7 6 12"></polygon>
-                              </svg>
-                            </div>
-                            <ul class="sr-only js-int-table__sort-list">
-                              <li><input type="radio" name="sorting-title" id="sorting-title-none" value="none" checked="checked"><label for="sorting-title-none">No sorting</label></li>
-                              <li><input type="radio" name="sorting-title" id="sorting-title-asc" value="asc"><label for="sorting-title-asc">Sort in ascending order</label></li>
-                              <li><input type="radio" name="sorting-title" id="sorting-title-des" value="desc"><label for="sorting-title-des">Sort in descending order</label></li>
-                            </ul>
-                          </th>
-                          <th class="int-table__cell yx-rto yx-pj">Author</th>
-                          <th class="int-table__cell yx-rto yx-pj">Category</th>
-                          <th class="int-table__cell yx-rto yx-pj">Status</th>
-                          <th class="int-table__cell yx-rto yx-rtu js-int-table__cell--sort" data-date-format="dd-mm-yyyy">
-                            <div class="flex items-center yx-fu">
-                              <span>Date</span>
-                              <svg class="icon yx-ac yx-cp yx-rtf" aria-hidden="true" viewBox="0 0 12 12">
-                                <polygon class="yx-rtl" points="6 0 10 5 2 5 6 0"></polygon>
-                                <polygon class="yx-rtc" points="6 12 2 7 10 7 6 12"></polygon>
-                              </svg>
-                            </div>
-                            <ul class="sr-only js-int-table__sort-list">
-                              <li><input type="radio" name="sorting-date" id="sorting-date-none" value="none" checked="checked"><label for="sorting-date-none">No sorting</label></li>
-                              <li><input type="radio" name="sorting-date" id="sorting-date-asc" value="asc"><label for="sorting-date-asc">Sort in ascending order</label></li>
-                              <li><input type="radio" name="sorting-date" id="sorting-date-des" value="desc"><label for="sorting-date-des">Sort in descending order</label></li>
-                            </ul>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody class="yx-rtr js-int-table__body">
-                        <tr class="yx-rti">
-                          <th class="int-table__cell" scope="row">
-                            <div class="yx-nwg yx-rth">
-                              <input class="yx-nwy js-int-table__select-row" type="checkbox" aria-label="Select this row">
-                              <div class="yx-nwb" aria-hidden="true"></div>
-                            </div>
-                          </th>
-                          <td class="int-table__cell max-width-xxxxs"><a href="article.html">Lorem ipsum dolor sit</a></td>
-                          <td class="int-table__cell"><a href="author.html">Bryony Mcmillan</a></td>
-                          <td class="int-table__cell"><a href="category.html">Category 1</a>,<a href="category.html">Category 2</a></td>
-                          <td class="int-table__cell"><span class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj">Published</span></td>
-                          <td class="int-table__cell yx-pq">18/03/2022</td>
-                        </tr>
-                        <tr class="yx-rti">
-                          <th class="int-table__cell" scope="row">
-                            <div class="yx-nwg yx-rth">
-                              <input class="yx-nwy js-int-table__select-row" type="checkbox" aria-label="Select this row">
-                              <div class="yx-nwb" aria-hidden="true"></div>
-                            </div>
-                          </th>
-                          <td class="int-table__cell max-width-xxxxs"><a href="article.html">Lorem ipsum dolor sit amet consectetur</a></td>
-                          <td class="int-table__cell"><a href="author.html">James Powell</a></td>
-                          <td class="int-table__cell"><a href="category.html">Category 1</a></td>
-                          <td class="int-table__cell"><span class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj">Published</span></td>
-                          <td class="int-table__cell yx-pq">12/03/2022</td>
-                        </tr>
-                        <tr class="yx-rti">
-                          <th class="int-table__cell" scope="row">
-                            <div class="yx-nwg yx-rth">
-                              <input class="yx-nwy js-int-table__select-row" type="checkbox" aria-label="Select this row">
-                              <div class="yx-nwb" aria-hidden="true"></div>
-                            </div>
-                          </th>
-                          <td class="int-table__cell max-width-xxxxs"><a href="article.html">Lorem ipsum dolor</a></td>
-                          <td class="int-table__cell"><a href="author.html">James Powell</a></td>
-                          <td class="int-table__cell"><a href="category.html">Category 3</a></td>
-                          <td class="int-table__cell"><span class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj">Published</span></td>
-                          <td class="int-table__cell yx-pq">05/03/2022</td>
-                        </tr>
-                        <tr class="yx-rti">
-                          <th class="int-table__cell" scope="row">
-                            <div class="yx-nwg yx-rth">
-                              <input class="yx-nwy js-int-table__select-row" type="checkbox" aria-label="Select this row">
-                              <div class="yx-nwb" aria-hidden="true"></div>
-                            </div>
-                          </th>
-                          <td class="int-table__cell max-width-xxxxs"><a href="article.html">Lorem ipsum dolor sit amet consectetur</a></td>
-                          <td class="int-table__cell"><a href="author.html">Bryony Mcmillan</a></td>
-                          <td class="int-table__cell"><a href="category.html">Category 2</a></td>
-                          <td class="int-table__cell"><span class="yx-fd yx-bg-b yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-w text-xs yx-dj">Draft</span></td>
-                          <td class="int-table__cell yx-pq">27/02/2022</td>
-                        </tr>
-                        <tr class="yx-rti">
-                          <th class="int-table__cell" scope="row">
-                            <div class="yx-nwg yx-rth">
-                              <input class="yx-nwy js-int-table__select-row" type="checkbox" aria-label="Select this row">
-                              <div class="yx-nwb" aria-hidden="true"></div>
-                            </div>
-                          </th>
-                          <td class="int-table__cell max-width-xxxxs"><a href="article.html">Lorem ipsum dolor sit</a></td>
-                          <td class="int-table__cell"><a href="author.html">Bryony Mcmillan</a></td>
-                          <td class="int-table__cell"><a href="category.html">Category 1</a>,<a href="category.html">Category 2</a></td>
-                          <td class="int-table__cell"><span class="yx-fd yx-bg-d yx-bg-ti yx-xb yx-padding-nq yx-padding-nd yx-color-m text-xs yx-dj">Published</span></td>
-                          <td class="int-table__cell yx-pq">15/02/2022</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between yx-padding-g">
-                  <p>21 results</p>
-                  <nav class="pagination" aria-label="Pagination">
-                    <ul class="yx-n_d flex yx-a_ gap-xxxs">
-                      <li>
-                        <a href="#0" class="yx-n_m">
-                          <svg class="icon" viewBox="0 0 16 16">
-                            <title>Go to previous page</title>
-                            <g stroke-width="2" stroke="currentColor">
-                              <polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="9.5,3.5 5,8 9.5,12.5 "></polyline>
-                            </g>
-                          </svg>
-                        </a>
-                      </li>
-                      <li><span class="yx-n_w flex items-center"><input aria-label="Page number" class="form-control" type="text" id="pageNumber" name="pageNumber" value="1"><em>of 3</em></span></li>
-                      <li>
-                        <a href="#0" class="yx-n_m">
-                          <svg class="icon" viewBox="0 0 16 16">
-                            <title>Go to next page</title>
-                            <g stroke-width="2" stroke="currentColor">
-                              <polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline>
-                            </g>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                {% include 'articles/table.html' %}
               </div>
+              {%endif%}
             </li>
           </ul>
         </div>

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gy yx-padding-rr">
+          <header class="yx-lb">
+            <h1 class="text-lg">New Article</h1>
+          </header>
+          <form method="post" action="{% url 'new_article' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+          <ul class="grid gap-md">
+            <li class="yx-or">
+              <ul class="grid gap-sm">
+                <li><label class="form-label margin-bottom-xxs" for="title">Title</label> <input class="form-control yx-me" type="text" name="title" id="title" required></li>
+                <li>
+                  <p class="form-label margin-bottom-xxs">Featured Image</p>
+                  <div class="ddf js-ddf--article">
+                    <div class="yx-nqq yx-padding-n flex yx-ft js-ddf__area">
+                      <input class="ddf__input " type="file" id="image" name="image"  accept="image/*">
+                      <div>
+                        <label class="yx-nqz js-ddf__label" for="image">
+                          <i class="yx-nzn flex items-center">
+                            <svg class="icon yx-ah yx-cn color-contrast-higher yx-nze" viewBox="0 0 64 64" aria-hidden="true">
+                              <path fill="currentColor" d="M51,27c-.374,0-.742.025-1.109.056a18,18,0,0,0-35.782,0C13.742,27.025,13.374,27,13,27a13,13,0,0,0,0,26H51a13,13,0,0,0,0-26Z"></path>
+                              <path d="M43.764,41.354l-11-13a1.033,1.033,0,0,0-1.526,0l-11,13A1,1,0,0,0,21,43h7V59h8V43h7a1,1,0,0,0,.764-1.646Z"></path>
+                            </svg>
+                            <span class="text-xs"><i class="yx-pg color-contrast-higher">Upload a file</i> or <i class="color-contrast-medium yx-aw">drag and drop</i></span>
+                          </i>
+                        </label>
+                        <span class="yx-nzt">
+                          <i class="yx-nzr">
+                            <svg class="icon yx-av color-contrast-higher yx-nzi" viewBox="0 0 64 64" aria-hidden="true">
+                              <path fill="currentColor" d="M1.4,16.868,7,15.636,18.972,13A1.783,1.783,0,0,1,21.1,14.359L28.21,46.683a1.783,1.783,0,0,1-1.358,2.124L9.28,52.675a1.784,1.784,0,0,1-2.124-1.358L.042,18.993A1.783,1.783,0,0,1,1.4,16.868Z" opacity="0.69"></path>
+                              <path fill="currentColor" d="M62.6,16.868,57,15.636,45.028,13A1.783,1.783,0,0,0,42.9,14.359L35.79,46.683a1.783,1.783,0,0,0,1.358,2.124L54.72,52.675a1.784,1.784,0,0,0,2.124-1.358l7.114-32.324A1.783,1.783,0,0,0,62.6,16.868Z" opacity="0.69"></path>
+                              <rect fill="currentColor" x="13" y="9" width="38" height="46" rx="2"></rect>
+                              <path d="M42.941,41.664l-5-14a1,1,0,0,0-1.624-.4l-15,14A1,1,0,0,0,22,43H42a1,1,0,0,0,.941-1.336Z" fill="var(--color-bg)"></path>
+                              <circle cx="24" cy="26" r="3" fill="var(--color-bg)"></circle>
+                            </svg>
+                            <span class="js-ddf__files-counter">{n} selected %file%files%</span>
+                          </i>
+                        </span>
+                      </div>
+                    </div>
+                    <ul class="ddf__list  yx-la js-ddf__list">
+                      <li class="yx-nzu js-ddf__item">
+                        <div class="yx-nzl margin-right-xxs c-progress-bar js-ddf__progress" data-progress="0%">
+                          <p class="sr-only" aria-live="polite" aria-atomic="true">Progress value is <span class="js-c-progress-bar__aria-value">0%</span></p>
+                          <div class="yx-nwc" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round">
+                              <g>
+                                <circle class="yx-nzh" cx="12" cy="12" r="11" stroke-width="2"></circle>
+                                <circle class="yx-nzc" cx="12" cy="12" r="11" stroke-width="2"></circle>
+                                <polyline class="yx-nzp" points="6 12 10 16 18 8" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                              </g>
+                              <g>
+                                <circle class="yx-nwh" cx="12" cy="12" r="11" stroke-width="2"></circle>
+                                <circle class="yx-nwp" cx="12" cy="12" r="11" stroke-width="2"></circle>
+                              </g>
+                            </svg>
+                          </div>
+                        </div>
+                        <span class="yx-nza yx-pe js-ddf__file-name"></span> 
+                        <button class="reset yx-nzf js-ddf__remove-btn">
+                          <svg class="icon yx-ac" viewBox="0 0 12 12">
+                            <title>Remove File</title>
+                            <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="1.5" y1="1.5" x2="10.5" y2="10.5"></line>
+                              <line x1="10.5" y1="1.5" x2="1.5" y2="10.5"></line>
+                            </g>
+                          </svg>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <div class="yx-nzv js-md-editor">
+                    <label class="form-label margin-bottom-xxs" for="md-editor-content">Content</label>
+                    <div class="yx-nyk yx-padding-t yx-ly">
+                      <menu class="flex yx-a_ js-md-editor__actions">
+                <li>
+                  <button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="heading" type="button" title="Heading" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Heading</title><g fill="currentColor"><path d="M3 15a1 1 0 0 0 1-1V9h8v5a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0v5H4V2a1 1 0 0 0-2 0v12a1 1 0 0 0 1 1z"></path></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="code" type="button" title="Code" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Code</title><g fill="currentColor"><path d="M6.707 2.293a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 0 1.414l5 5a1 1 0 1 0 1.414-1.414L2.414 8l4.293-4.293a1 1 0 0 0 0-1.414z"></path><path d="M15.707 7.293l-5-5a1 1 0 0 0-1.414 1.414L13.586 8l-4.293 4.293a1 1 0 1 0 1.414 1.414l5-5a1 1 0 0 0 0-1.414z"></path></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="link" type="button" title="Link" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Link</title><g fill="currentColor"><path d="M7.431 12.6l-.566.564a2.92 2.92 0 0 1-4.03 0 2.849 2.849 0 0 1 0-4.03L4.54 7.43a2.92 2.92 0 0 1 4.028 0c.068.067.131.137.191.209A1 1 0 1 0 10.3 6.363a4.63 4.63 0 0 0-.316-.347 4.848 4.848 0 0 0-6.858 0l-1.7 1.705a4.849 4.849 0 1 0 6.852 6.859l.565-.563A1 1 0 1 0 7.431 12.6z"></path><path d="M11.15 0a4.816 4.816 0 0 0-3.429 1.42l-.565.565A1 1 0 1 0 8.57 3.4l.565-.565a2.919 2.919 0 0 1 4.03 0 2.85 2.85 0 0 1 0 4.031L11.46 8.57a2.851 2.851 0 0 1-4.03 0 2.844 2.844 0 0 1-.189-.207A1 1 0 1 0 5.7 9.637a4.688 4.688 0 0 0 .316.347 4.855 4.855 0 0 0 6.858 0l1.705-1.7A4.85 4.85 0 0 0 11.15 0z"></path></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="blockquote" type="button" title="Blockquote" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Blockquote</title><g fill="currentColor"><path d="M6 7H2.016a5.559 5.559 0 0 1 .829-2.464 5.5 5.5 0 0 1 1.694-1.694 1 1 0 1 0-1.078-1.684 7.484 7.484 0 0 0-2.306 2.306A7.739 7.739 0 0 0 0 8.013V14a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"></path><path d="M15 7h-3.984a5.559 5.559 0 0 1 .829-2.464 5.5 5.5 0 0 1 1.694-1.694 1 1 0 1 0-1.078-1.684 7.484 7.484 0 0 0-2.306 2.306A7.739 7.739 0 0 0 9 8.013V14a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"></path></g></svg></button></li><li class="yx-nzg" role="separator"></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="bold" type="button" title="Bold" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Bold</title><g fill="currentColor"><path d="M3 15h7a3.988 3.988 0 0 0 2.035-7.425A3.962 3.962 0 0 0 13 5a4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1zm7-2H4V9h6a2 2 0 0 1 0 4zM4 3h5a2 2 0 0 1 0 4H4z"></path></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="italic" type="button" title="Italic" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Italic</title><g fill="currentColor"><path d="M6 15h3a1 1 0 0 0 0-2H7.388l3.333-10H13a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1.612L5.279 13H3a1 1 0 0 0 0 2h3z"></path></g></svg></button></li><li class="yx-nzg" role="separator"></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="uList" type="button" title="Unordered list" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Unordered list</title><g fill="currentColor"><path d="M14 2H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path><circle cx="3" cy="3" r="2"></circle><path d="M14 12H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path><circle cx="3" cy="13" r="2"></circle><path d="M14 7H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path><circle cx="3" cy="8" r="2"></circle></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="oList" type="button" title="Ordered list" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Ordered list</title><g fill="currentColor"><path d="M14 2H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path><path d="M14 7H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path><path d="M14 12H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path><path d="M1.854 3.922l.4-.255v2.625a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-1.156-.631l-1.553 1a.75.75 0 0 0 .813 1.261z"></path><path d="M4.177 12.733h-.829a4.857 4.857 0 0 1 .413-.333 2.3 2.3 0 0 0 .977-2.31A1.741 1.741 0 0 0 3.5 8.69a2.093 2.093 0 0 0-2.374 1.391.75.75 0 1 0 1.4.527c.087-.233.37-.514.619-.461a.425.425 0 0 1 .132.3.8.8 0 0 1-.391.731 5.269 5.269 0 0 0-1.751 2 .749.749 0 0 0 .689 1.046h2.353a.75.75 0 0 0 0-1.5z"></path></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="tList" type="button" title="Task list" data-tooltip-class="tooltip--sm"><svg class="yx-nzy icon" viewBox="0 0 16 16"><title>Task list</title><g fill="currentColor"><path d="M13 0H3a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3zm1 13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"></path><path d="M10.293 5.293L7 8.586 5.707 7.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414z"></path></g></svg></button></li><li><button class="reset yx-nzm js-tooltip-trigger js-tab-focus" data-md-action="nLine" type="button" title="New Line" data-tooltip-class="tooltip--sm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="yx-nzy text-bold icon bi bi-arrow-return-left" viewBox="0 0 16 16"><title>New Line</title><path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/></svg></button></li>
+                      </menu>
+              </div>
+              <textarea class="form-control yx-me js-md-editor__content" name="body" id="md-editor-content" rows="12" required></textarea></div>
+                </li>
+                <li class="yx-border-t yx-hv" role="separator"></li>
+                <li><label class="form-label margin-bottom-xxs" for="seo-title">Seo Title</label> <input class="form-control yx-me" type="text" name="seo-title" id="seo-title"></li>
+                <li><label class="form-label margin-bottom-xxs" for="url">URL</label> <input class="form-control yx-me" type="text" name="url" id="url"></li>
+                <li><label class="form-label margin-bottom-xxs" for="seo-description">Seo Description</label> <textarea class="form-control yx-me" name="seo-description" id="seo-description" rows="4"></textarea>
+                </li>
+              </ul>
+            </li>
+            <li class="yx-sk">
+              <ul class="grid gap-sm">
+                <li id="update-section">
+                  <div class="margin-bottom-xxs">
+                    <div class="flex yx-tom">
+                      <p class="form-label">Update</p>
+                      <p><a class="text-sm color-contrast-higher yx-tv_" href="#" target="_blank">Preview ↗</a></p>
+                    </div>
+                  </div>
+                  <div class="yx-nyk yx-padding-s">
+                    <ul class="grid gap-xs">
+                      <li>
+                        <ul class="grid items-center gap-xs">
+                          <li class="yx-c yx-uo"><label class="form-label" for="select-status">Status</label></li>
+                          <li class="col">
+                            <div class="select text-sm" style="--select-icon-size: 12px; --select-icon-right-margin: var(--space-xs);">
+                              <select class="yx-nwx btn btn--subtle yx-padding-nq yx-padding-np" name="status" id="select-status">
+                                <option value="Published">Published</option>
+                                <option value="Draft">Draft</option>
+                              </select>
+                              <svg class="icon yx-nwk" aria-hidden="true" viewBox="0 0 12 12">
+                                <polyline points="1 4 6 9 11 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                              </svg>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                      
+                      <li class="yx-pq"><a class="text-sm color-accent yx-cr" href="#0" aria-controls="dialog-delete-confirmation">Delete</a> <button class="btn btn--primary yx-padding-nm">Save</button></li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <div class="margin-bottom-xxs">
+                    <p class="form-label">Categories</p>
+                  </div>
+                  <div class="multi-select-v2 js-multi-select-v2">
+                    <div class="list-filter js-list-filter">
+                      <div class="yx-nxy yx-nyk">
+                        <div class="yx-ya yx-border-n yx-border-p yx-aw">
+                          <input autocomplete="off" class="reset yx-nxb yx-padding-nv yx-padding-re text-sm js-list-filter__search" type="search" name="list-filter" id="list-filter" placeholder="Search"> <span class="yx-nxw" aria-hidden="true"></span> 
+                          <button class="reset yx-nxx js-list-filter__search-cancel-btn yx-bv js-tab-focus" type="button">
+                            <svg class="block icon icon--xs" viewBox="0 0 16 16">
+                              <title>Reset selection</title>
+                              <path d="M8,0a8,8,0,1,0,8,8A8,8,0,0,0,8,0Z" fill="var(--color-contrast-medium)"></path>
+                              <path d="M9.414,8l2.293-2.293a1,1,0,1,0-1.414-1.414L8,6.586,5.707,4.293A1,1,0,0,0,4.293,5.707L6.586,8,4.293,10.293a1,1,0,1,0,1.414,1.414L8,9.414l2.293,2.293a1,1,0,0,0,1.414-1.414Z" fill="var(--color-bg)"></path>
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="yx-nxk">
+                          <ul class="yx-nx_ js-list-filter__list">
+                            {% for category in categories %}
+                            <li class="js-list-filter__item">
+                              <label class="yx-rer yx-padding-re yx-padding-nv cursor-pointer text-sm"><span class="yx-nwg yx-res margin-right-xxs yx-ve"><input class="yx-nwy js-multi-select-v2__input" type="radio" name="category" value="{{category.title}}" data-category="{{category.id}}" id="{{category.title}}"> <span class="yx-nwb" aria-hidden="true"></span> </span><span class="js-list-filter__label">{{category.title}}</span></label>
+                            </li>
+                            {%endfor%}
+                            <li class="is-hidden js-list-filter__no-results-msg padding-md">
+                              <p class="text-sm color-contrast-medium">No results</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <footer class="yx-la text-sm flex justify-between">
+                      <p class="color-contrast-medium"><span class="js-multi-select-v2__selected-items-counter">0</span> selected</p>
+                      <button class="reset color-contrast-higher text-underline cursor-pointer js-multi-select-v2__reset" type="button">Reset</button>
+                    </footer>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </form>
+        </div>
+        <div class="yx-nj_ yx-njj yx-padding-rt yx-padding-nm bg-light js-sticky-banner" data-target-out="#update-section" data-scrollable-element="#main"><button class="btn btn--primary yx-me">Save</button></div>
+      </main>
+    </div>
+    <div id="dialog-delete-confirmation" class="dialog js-dialog" data-animation="on">
+      <div class="yx-nxa yx-gd" role="alertdialog">
+        <div class="text-component yx-db">
+          <h4>Are you sure you want to delete this article?</h4>
+          <p class="color-contrast-medium">This action cannot be undone.</p>
+        </div>
+        <footer class="yx-ll">
+          <div class="flex yx-fu gap-xs yx-a_"><button class="btn btn--subtle js-dialog__close">Cancel</button> <a class="btn btn--accent" href="{% url 'articles' %}">Delete</a></div>
+        </footer>
+      </div>
+    </div>
+    {% endblock %}

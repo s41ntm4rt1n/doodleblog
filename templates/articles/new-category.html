@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Category{% endblock %}
+{% block content %}
+    <div class="yx-tvj">
+        {% include 'components/sidebar.html' %}
+      <main class="yx-ya z-index-1 flex-grow yx-gh yx-t_d yx-t_g yx-tk_ yx-tqm yx-njv">
+      {% include 'components/main-header.html' %}
+      {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+        <div class="yx-t yx-gm yx-padding-rr">
+          <header class="yx-lw">
+            <h1 class="text-lg">New Category</h1>
+          </header>
+          <form action="{% url 'new_category' %}" method="post">
+            {% csrf_token %}
+          <ul class="grid gap-sm">
+            <li><label class="form-label margin-bottom-xxs" for="category-name">Name</label> <input class="form-control yx-me" type="text" name="title" id="title" required></li>
+            <li class="yx-pq"><button class="btn btn--primary yx-padding-nm" type="submit">Save</button></li>
+          </ul>
+        </form>
+        </div>
+      </main>
+    </div>
+    {% endblock %}

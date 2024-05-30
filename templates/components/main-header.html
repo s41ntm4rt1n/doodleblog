@@ -1,62 +1,43 @@
 {% load static %}
-<header class="position-sticky yx-yh yx-wf bg yx-bg-tl yx-border-n yx-border-no yx-xz yx-tqx">
+<header class="position-sticky yx-yh yx-wf bg yx-bg-tl yx-xz yx-tqx">
   <div class="yx-nbt flex items-center justify-between yx-padding-n_">
-    <div class="yx-njg yx-njw yx-ya yx-me max-width-xxxxs autocomplete js-autocomplete" data-autocomplete-dropdown-visible-class="autocomplete--results-visible">
-      <form action="https://codyhouse.co/demo-templates/nettuno/search-results.html">
-        <input autocomplete="off" class="yx-njy form-control js-autocomplete__input js-search-input" type="search" name="search-input" id="search-input" placeholder="Search..." aria-label="Search">
-        <button class="yx-njx">
-          <svg class="icon" viewBox="0 0 16 16">
-            <title>Submit</title>
-            <circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
-            <line x1="14" y1="14" x2="10" y2="10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line>
-          </svg>
-        </button>
-      </form>
-      <span class="yx-njk" aria-hidden="true">/</span>
-      <div class="yx-nqd yx-yf yx-yh yx-bl yx-padding-td yx-ge flex items-center" aria-hidden="true">
-        <div class="yx-nbx yx-nb_">
-          <div class="yx-nbj"></div>
-        </div>
-      </div>
-      <div class="yx-nqm js-autocomplete__results">
-        <ul id="autocomplete1" class="yx-nqg js-autocomplete__list">
-          <li class="yx-nqy js-autocomplete__item is-hidden"><a data-autocomplete-url class="yx-dt color-contrast-higher block yx-padding-re yx-padding-nv autocomplete__link"><span class="block" data-autocomplete-label></span><span class="block text-xs color-contrast-medium yx-lo" data-autocomplete-category></span></a></li>
-        </ul>
-      </div>
-      <p class="sr-only" aria-live="polite" aria-atomic="true"><span class="js-autocomplete__aria-results">0</span>results found.</p>
-    </div>
-    <div>
+    {% include 'components/headersearchform.html' %}
+    <div class="ms-5">
       {% if request.user.is_authenticated %}
+      {% if member %}
       <button class="reset yx-rek" aria-controls="user-menu" aria-label="Toggle user menu">
-        <figure class="yx-re_ yx-xy"><img class="yx-req" src="{% static 'assets/img/author-img-1.jpg' %}" alt="User picture"></figure>
+        {% if member.has_image %}
+        <figure class="yx-re_ yx-xy"><img class="block yx-me yx-ge object-cover yx-req" src="{{member.image.url}}" alt="User picture"></figure>
+        {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+        </svg>
+        {% endif %}
         <div class="yx-ht yx-rez">
-          <p class="yx-rej text-sm yx-d_ yx-padding-nj yx-pg color-contrast-higher yx-pt">Emily Ewing</p>
-          <p class="text-xs color-contrast-medium yx-d_ yx-padding-z">Admin</p>
+          <p class="yx-rej text-sm yx-d_ yx-padding-nj yx-pg color-contrast-higher yx-pt">{{member.name}}</p>
+          {% if member.is_author == True %}
+          <p class="text-xs color-contrast-medium yx-d_ yx-padding-z">Author</p>
+          {% elif member.is_moderator == True %}
+          <p class="text-xs color-contrast-medium yx-d_ yx-padding-z">Moderator</p>
+          {% else %}
+          <p class="text-xs color-contrast-medium yx-d_ yx-padding-z">Member</p>
+          {% endif %}
         </div>
         <svg class="icon yx-ac" aria-hidden="true" viewBox="0 0 12 12">
           <polyline points="1 4 6 9 11 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
         </svg>
       </button>
+      {% endif %}
       <menu id="user-menu" class="menu js-menu">
         <li role="menuitem">
-          <a class="menu__content js-menu__content" href="settings.html">
+          <a class="menu__content js-menu__content" href="{{member.get_absolute_url}}">
             <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 16 16">
               <g fill="currentColor">
                 <path d="M15.135,6.784c-1.303-0.326-1.921-1.818-1.23-2.969c0.322-0.536,0.225-0.998-0.094-1.316l-0.31-0.31 c-0.318-0.318-0.78-0.415-1.316-0.094c-1.152,0.691-2.644,0.073-2.969-1.23C9.065,0.258,8.669,0,8.219,0H7.781 c-0.45,0-0.845,0.258-0.997,0.865c-0.326,1.303-1.818,1.921-2.969,1.23C3.279,1.773,2.816,1.87,2.498,2.188l-0.31,0.31 C1.87,2.816,1.773,3.279,2.095,3.815c0.691,1.152,0.073,2.644-1.23,2.969C0.26,6.935,0,7.33,0,7.781v0.438 c0,0.45,0.258,0.845,0.865,0.997c1.303,0.326,1.921,1.818,1.23,2.969c-0.322,0.536-0.225,0.998,0.094,1.316l0.31,0.31 c0.319,0.319,0.782,0.415,1.316,0.094c1.152-0.691,2.644-0.073,2.969,1.23C6.935,15.742,7.331,16,7.781,16h0.438 c0.45,0,0.845-0.258,0.997-0.865c0.326-1.303,1.818-1.921,2.969-1.23c0.535,0.321,0.997,0.225,1.316-0.094l0.31-0.31 c0.318-0.318,0.415-0.78,0.094-1.316c-0.691-1.152-0.073-2.644,1.23-2.969C15.742,9.065,16,8.669,16,8.219V7.781 C16,7.33,15.74,6.935,15.135,6.784z M8,11c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S9.657,11,8,11z"></path>
               </g>
             </svg>
             <span>Settings</span>
-          </a>
-        </li>
-        <li role="menuitem">
-          <a class="menu__content js-menu__content" href="users.html">
-            <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 16 16">
-              <circle cx="10.5" cy="2.5" r="2.5"></circle>
-              <circle cx="5.5" cy="6.5" r="2.5"></circle>
-              <path d="M15.826,10.124A5.455,5.455,0,0,0,9.46,6.107,3.932,3.932,0,0,1,9.5,6.5,3.97,3.97,0,0,1,8.452,9.176,6.963,6.963,0,0,1,11.539,12h2.829a1.5,1.5,0,0,0,1.458-1.876Z"></path>
-              <path d="M10.826,14.124a5.5,5.5,0,0,0-10.652,0A1.5,1.5,0,0,0,1.632,16H9.368a1.5,1.5,0,0,0,1.458-1.876Z"></path>
-            </svg>
-            <span>Users</span>
           </a>
         </li>
         <li class="yx-nkv" role="separator"></li>

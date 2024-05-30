@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Password Reset{% endblock %}
+{% block content %}
+  <body>
+    {% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+    <div class="yx-t yx-gp yx-hg">
+      <form method="post" action="{% url 'change_email' slug=member.slug %}">
+        {% csrf_token %}
+        <div class=" yx-lw">
+          <h1>Change your email</h1>
+          <p>Enter the email to recieve a new OTP activation code</p>
+        </div>
+        <h1 class="sr-only">Password Reset</h1>
+        <div class="yx-lb"><label class="form-label yx-ly" for="email">Email</label> <input class="form-control yx-me" type="email" name="email" id="email" placeholder="email@example.com"></div>
+        <div class="yx-lb pt-2 d-flex justify-content-end"><button class="btn btn--primary btn--md yx-me col-3" type="submit">Change</button></div>
+        <div class="yx-p_ mt-1">
+          <p class="text-md"><a class="color-contrast-higher" href="{{member.get_edit_url}}">&larr; Back</a></p>
+        </div>
+      </form>
+    </div>
+  </body>
+  {% endblock %}
+  {% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var alert = document.getElementById('alert');
+    hideAlertAfterDelay(alert);
+    function hideAlertAfterDelay(alert) {
+      setTimeout(function() {
+          alert.classList.add('not-visible');
+      }, 6000);
+    }
+  });
+</script>
+{% endblock %}

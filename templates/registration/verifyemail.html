@@ -2,25 +2,30 @@
 {% load static %}
 {% block title %}Verify Email{%endblock%}
 {% block content%}
-<div class="yx-t yx-mj yx-ap yx-fe yx-ga yx-gx">
+{% if messages %}
+      {% for message in messages %}
+          {% include 'components/popup.html'%}
+      {% endfor %}
+      {% endif %}
+<div class="yx-t yx-gp yx-hg">
   <form class="sign-up-form"  method="post">
     {% csrf_token %}
     <div class="text-component yx-ht yx-sv">
       <h1>Verify Email</h1>
-      <p class="text-sm">Verify your email to continue.</p>
+      <p class="text-sm">Enter the OTP sent to your email to continue.</p>
     </div>
     <div class="yx-sv">
-      <div class="yx-n gap-xs">
+      <div class="yx-n gap-xs mb-4">
         
           <label class="form-label yx-sp" for="OTP">OTP</label>
-          <input class="form-control yx-vf" type="text" name="otp_code" id="otp_code" required>
+          <input class="form-control yx-me" type="text" name="otp_code" id="otp_code" required>
         
       </div>
     </div>
-    <div class="yx-sv d-flex justify-content-center">
+    <div class="yx-sv d-flex justify-content-center mb-2">
       <button class="btn btn--primary btn--xs">Verify</button>
     </div>
-    <div class="yx-ht">
+    <div class="yx-ht d-flex justify-content-center">
       <p class="text-sm">Need a new OTP? <a href="{% url 'resend_otp' %}">Resend OTP</a>
       </p>
     </div>
